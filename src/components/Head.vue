@@ -2,17 +2,22 @@
     <div>
       
      <nav class=" bg-orange-400  text-gray-950 ">
-   
-   <div class="  max-w-screen-xl flex flex-wrap items-center md:justify-between mx-auto p-1">
+
+        <div class="flex justify-between px-8    md:justify-between mx-auto p-2">
+                        <div class="flex items-start space-x-2">
+                            <div class="flex items-center  ">
+
+  <!-- <div class="  max-w-screen-xl flex flex-wrap items-center md:justify-between mx-auto p-1">-->
    <a href=""   class="  flex items-center space-x-3 rtl:space-x-reverse">
     
   <img src="../assets/un.jpg" class="h-12 border rounded-full border-orange-500" alt=" Logo" /> 
- 
-   
-       <span class="self-center text-2xl font-semibold whitespace-nowrap ">EatEasily</span>
-   </a>
- 
+ </a>
+   </div>
 
+       <span class="self-center text-2xl font-semibold whitespace-nowrap ">EatEasily</span>
+   
+ 
+                        </div>
  
         <div class="flex   md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse  items-center  ">
           
@@ -38,11 +43,12 @@
    </RouterLink>
    </div>
        
+        </div>
 
    </div>
      
  
-    </div>
+    
        
 
  
@@ -161,12 +167,18 @@ import { RouterLink } from 'vue-router';
 import axios from 'axios';
 import { useRouter } from "vue-router";
 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// src/firebase.js
+import { initializeApp } from 'firebase/app';
+
 
 const active = ref(true);
 const active1 = ref(true);
 const active2 = ref(true);
 const errorMessage = ref('');
 const successMessage = ref('');
+const errorcode = ref('');
+
  const router = useRouter(); // Initialiser le routeur
 
 
@@ -197,6 +209,50 @@ const email1 = ref('');
 const password1 = ref('');
 
 
+
+
+
+
+    //Your web app's Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyBafa0YuLnJkxK4AJCeeNWtyCZsKr4j3-Q",
+  authDomain: "upload-firebase-storage-90674.firebaseapp.com",
+  projectId: "upload-firebase-storage-90674",
+  storageBucket: "upload-firebase-storage-90674.appspot.com",
+  messagingSenderId: "256589565536",
+  appId: "1:256589565536:web:6ad77c4447d9d79c1f7d05"
+};
+// Initialiser Firebase
+const app = initializeApp(firebaseConfig);
+
+const login = async () => {
+    try {
+        
+const auth = getAuth(); // Initialisation de l'authentification
+
+        errorMessage.value = ''; // Réinitialiser le message d'erreur
+
+        // Utilisation de await pour la promesse
+        const userCredential = await signInWithEmailAndPassword(auth, email1.value, password1.value);
+        
+        // Connexion réussie
+        const user = userCredential.user;
+        router.push('/client'); 
+         // Stocker l'email dans localStorage
+     localStorage.setItem('userEmail', email1.value);
+
+        console.log("Connexion réussie :", user);
+    } catch (error) {
+        // Gérer les erreurs ici
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Erreur de connexion :", errorCode, errorMessage);
+        errorMessage.value = errorMessage; // Afficher le message d'erreur à l'utilisateur
+    }
+};
+
+
+/*
 const login = async () => {
       try {
         errorMessage.value = ''; // Réinitialiser le message d'erreur
@@ -224,7 +280,7 @@ const login = async () => {
         }
       }
     };
-
+*/
     
     const email = ref('');
     const password = ref('');

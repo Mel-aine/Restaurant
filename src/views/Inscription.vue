@@ -78,8 +78,32 @@
 import { ref } from "vue";
 import Head from '../components/Head.vue';
 import { useRouter } from "vue-router";
+//import { auth } from './firebase'; // Importez votre configuration Firebase
+import { signInWithEmailAndPassword } from "firebase/auth"; // Importez la fonction de connexion avec Firebase Auth
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 import axios from 'axios';
+
+
+
+
+// src/firebase.js
+import { initializeApp } from 'firebase/app';
+
+    //Your web app's Firebase configuration
+    const firebaseConfig = {
+  apiKey: "AIzaSyBafa0YuLnJkxK4AJCeeNWtyCZsKr4j3-Q",
+  authDomain: "upload-firebase-storage-90674.firebaseapp.com",
+  projectId: "upload-firebase-storage-90674",
+  storageBucket: "upload-firebase-storage-90674.appspot.com",
+  messagingSenderId: "256589565536",
+  appId: "1:256589565536:web:6ad77c4447d9d79c1f7d05"
+};
+// Initialiser Firebase
+const app = initializeApp(firebaseConfig);
+
+
 
 
    
@@ -108,6 +132,19 @@ const email = ref('');
     const register = async () => {
 
       try {
+
+// 1. Créer un utilisateur avec Firebase Auth
+//const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+   // const user = userCredential.user;
+
+  const auth = getAuth();
+createUserWithEmailAndPassword(auth, email.value, password.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    // ...
+  }) 
+
         const response = await axios.post('http://localhost:3001/users/form', {
             Email: email.value,
             Password: password.value,
@@ -137,9 +174,10 @@ router.push('/');
         if (error.response) {
           erreur.value = error.response.data.message || 'Erreur lors de l\'inscription';
         } else {
-          erreur.value = 'Erreur d\' Enregistrement';
+          erreur.value = error.message || "erreur d enregistrement";
         }
-      }
+      
+  }
     };
 
 

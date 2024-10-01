@@ -3,7 +3,7 @@
 import Aos from 'aos';
 import Footer from './components/Footer.vue';
 //import Head from './components/Head.vue';
-//import Connexion from './views/Connexion.vue';
+import restaurateur from './views/restaurateur.vue';
 
 import { onMounted } from 'vue';
 
@@ -16,11 +16,11 @@ onMounted( async () => {
 </script>
 
 <template>
-  <div>
-  
- <div class="sticky top-0 z-50">
 
-</div>
+
+<restaurateur/>
+  <div>
+
 
 
   <router-view/>

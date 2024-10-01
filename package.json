@@ -11,6 +11,9 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^1.7.7",
+    "firebase": "^10.13.2",
+    "flowbite": "^2.5.2",
+    "swiper": "^11.1.14",
     "vue": "^3.4.37",
     "vue-router": "^4.4.3"
   },
