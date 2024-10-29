@@ -4,7 +4,7 @@
    
   <div class = "  ">
     <div class="sticky top-0 z-50">
-    <Head/>
+  
   </div>
 
 <div class="grid grid-cols-2 gab-4 mx-auto ">
@@ -76,12 +76,11 @@
 
 <script setup>
 import { ref } from "vue";
-import Head from '../components/Head.vue';
 import { useRouter } from "vue-router";
 //import { auth } from './firebase'; // Importez votre configuration Firebase
 import { signInWithEmailAndPassword } from "firebase/auth"; // Importez la fonction de connexion avec Firebase Auth
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
+import { store } from "../store/global";
 
 import axios from 'axios';
 
@@ -158,16 +157,13 @@ createUserWithEmailAndPassword(auth, email.value, password.value)
         
     // Traitement de la réponse (par exemple, stockage du token ou des données utilisateur ici)
         console.log(response.data);
+        store.setRestaurantId(response.data.data);
 
 // Redirection vers la page d'accueil ou tableau de bord après connexion réussie
 //successMessage.value = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
 alert ("Inscription réussie ! Vous pouvez maintenant vous connecter.")
         // Redirection vers la page de connexion ou autre
 router.push('/'); 
-
-
-
-
 
       } 
       catch (error) {
@@ -180,9 +176,6 @@ router.push('/');
   }
     };
 
-
-
-    
 
 
    </script>

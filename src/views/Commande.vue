@@ -3,7 +3,7 @@
 <div>
 
   <div class=" sticky top-0 z-50">
-    <Header/>
+    
 </div>
 <div class="px-4 mx-auto  text-center  ">
  
@@ -74,7 +74,6 @@ import tabOne from './tabOne.vue';
 import tabTwo from './tabTwo.vue';
 import tabThree from './tabThree.vue';
 
-import Header from '../components/Header.vue';
 
 export default {
   data() {
@@ -111,7 +110,7 @@ export default {
     tabOne,
     tabTwo,
     tabThree,
-    Header,
+    
     },
     
   methods: {
