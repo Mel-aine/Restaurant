@@ -16,7 +16,7 @@ onMounted( async () => {
 <template>
 
 
-  <div>
+  <div class="flex flex-col justify-between">
 <div class="sticky top-0 z-50">
 <Head/>
 </div>

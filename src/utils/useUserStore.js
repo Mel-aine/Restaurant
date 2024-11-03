@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
           this.userInfo = userCredential.user; // Stockez les informations de l'utilisateur
         } catch (error) {
           console.error('Erreur de connexion:', error.message);
+        //  alert("email or password incorrect");
           throw error; // Vous pouvez gérer l'erreur selon vos besoins
         }
     },

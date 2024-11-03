@@ -7,6 +7,8 @@ state : () => ({
     state : [],
     dishList : [],
     restoMemory : [],
+    dishMemory : [],
+
 }),
 
 getters: {
@@ -22,14 +24,40 @@ getters: {
 actions: {
 add(newItem) {
 
-     const existingItem = this.items.find(item => item.id_menu === newItem.id_menu);
-     console.log('items', this.items)
+      const existingItem = this.items.find(item => item.id_menu === newItem.id_menu);
+    //  console.log('items', this.items)
      if (existingItem) {
-         existingItem.quantity++;
-     } else {
-         this.items.push({...newItem, quantity: 1 });
-     }
+    //      existingItem.quantity++;
+        alert("Dish already added")
+      } else {
+          this.items.push({...newItem, quantity: 1 });
+      }
+
+
+    
+ 
 },
+
+
+
+increment(newItem) {
+    const existingItem = this.items.find(item => item.id_menu === newItem.id_menu);
+    if (existingItem) {
+        existingItem.quantity++;
+    }
+},
+
+decrement(newItem) {
+    const existingItem = this.items.find(item => item.id_menu === newItem.id_menu);
+    if (existingItem && existingItem.quantity > 1) {
+        existingItem.quantity--;
+    }
+},
+//vider le panier 
+clear() {
+    this.items = [];
+},
+
 
 remove(deleteItemId) {
     console.log('Items before deletion:', this.items);

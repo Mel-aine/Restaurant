@@ -6,31 +6,20 @@
           <div class="flex items-center">
             <!-- <div class="  max-w-screen-xl flex flex-wrap items-center md:justify-between mx-auto p-1">-->
             <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-              <img
-                src="../assets/un.jpg"
-                class="h-12 border rounded-full border-orange-500"
-                alt=" Logo"
-              />
+              <img  src="../assets/un.jpg"  class="h-12 border rounded-full border-orange-500"  alt=" Logo"/>
             </a>
           </div>
 
           <span class="self-center text-2xl font-semibold whitespace-nowrap"
-            >EatEasily</span
-          >
+            >EatEasily</span >
         </div>
         <!-- !store.global?.hasUser -->
         <div v-if="!user.isLoggedIn"
-          class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center"
-        >
+          class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
           <div class="space-x-5">
             <a href="">
-              <bouton data-modal-target="authentication-modal" type="button"
-                @click.prevent="open1"
-                class="text-gray-950 text-md font-meduim btn-open-modal"
-                >Restaurateur space</bouton
-              >
+              <button data-modal-target="authentication-modal" type="button" @click.prevent="open1" class="text-gray-950 text-md font-meduim btn-open-modal" >Restaurateur space</button >
             </a>
-
             <a href="">
               <button type="button" data-modal-target="authentication-modal"  @click.prevent="open" class="">
                 <div class="btn-open-modal flex items-center space-x-2 px-4 border border-orange-500 bg-white hover:bg-orange-300 hover:text-white rounded-full" >
@@ -44,24 +33,21 @@
             </a>
           </div>
         </div>
-         <div v-else 
-          class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center"
-        >
+         <div v-else  class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center" >
            <div class="space-x-5 relative">
-            <button  @click.prevent="toggleDropdown" class="text-white font-medium  text-md text-center  items-center " type="button"> {{ user.email }} <svg  class="w-2.5 h-2.5 ms-3 inline-flex" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-</svg> </button> 
-
+            <button  @click.prevent="toggleDropdown" class="text-white font-medium  text-md text-center  items-center " type="button"> {{ user.email }} <svg  class="w-2.5 h-2.5 ms-3 inline-flex"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg> 
+            </button> 
            </div> 
-
         </div>
       </div>
     </nav>
+
     <div v-show="isDropdownOpen"   class="absolute right-0  z-0  bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
       
       <li>
-        <button @click="logout" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</button>
+        <button @click="logout" v-if="user.isLoggedIn" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</button>
       </li>
     </ul>
 </div> 
@@ -70,7 +56,7 @@
     <div
       id="authentication-modal"
       tabindex="-1"
-      aria-hidden="true"
+      
       v-show="active == false"
       class="flex bg-gray-950 bg-opacity-50 inset-0 overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full h-full"
     >
@@ -93,7 +79,7 @@
             >
               <svg
                 class="w-3 h-3"
-                aria-hidden="true"
+                
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 14 14"
@@ -175,7 +161,7 @@
     <div
       id="authentication-modal"
       tabindex="-1"
-      aria-hidden="true"
+      
       v-show="active1 == false"
       class="inset-0 bg-gray-950 bg-opacity-50  flex shadow overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full h-full"
      > <!--bg-gray-950 bg-opacity-50  -->
@@ -197,7 +183,7 @@
             >
               <svg
                 class="w-3 h-3"
-                aria-hidden="true"
+                
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 14 14"
@@ -273,6 +259,7 @@
                 >
               </div>
             </form>
+            <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
           </div>
         </div>
       </div>
@@ -336,18 +323,29 @@ const handleLogin = async () => {
   try {
     const userStore = useUserStore();
     await userStore.login(email1.value, password1.value);
-   
-    alert('Connexion réussie !');
-     store.setUser(userStore);
+    // Vérifiez si userInfo est défini
+    if (userStore.userInfo && userStore.userInfo.email) {
+      alert('Connexion réussie !');
+    
      console.log("Email de l'utilisateur :", userStore.userInfo.email)
      localStorage.setItem("userEmail1",userStore.userInfo.email ); 
      email1.value = '';
      password1.value = '';
 
      close()
+    } else {
+      throw new Error("Informations utilisateur non disponibles après la connexion");
+    }
+
 
   } catch (error) {
-    alert('Erreur de connexion : ' + error.message);
+    if (error.response) {
+      errorMessage.value = error.response.data.message || "Erreur lors de la connexion";
+    
+    } else {
+      errorMessage.value = error.message || "Erreur de connexion";
+    }
+    console.error("Erreur de connexion :", error);
   }
 };
 
@@ -357,6 +355,14 @@ const user = computed(() => ({
 }));
 
 
+// Récupérer l'email de l'utilisateur depuis le localStorage au chargement du composant
+onMounted(() => {
+  const storedEmail = localStorage.getItem("userEmail1");
+  if (storedEmail) {
+    // Vous pouvez ici mettre à jour le store ou faire autre chose
+    userStore.userInfo = { email: storedEmail }; // Met à jour le store avec l'email
+  }
+});
 
 
 
@@ -374,7 +380,7 @@ const connexion = async () => {
       await userStore.login(email.value, password.value);
      if (userStore.userInfo) {
       alert('Connexion réussie !');
-      localStorage.setItem("userEmail", userStore.userInfo.email);
+      localStorage.setItem("userEmail1",userStore.userInfo.email ); 
       email.value = '';
       password.value = '';
       errorMessage.value = ""; 

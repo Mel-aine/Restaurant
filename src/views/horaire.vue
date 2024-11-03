@@ -5,24 +5,30 @@
    
       <hr>
 
-
-
-      <div v-for="horaire in horaires" :key="horaire.id" class=" ">
-         <div class="grid grid-cols-2 gap-6 px-8  py-2">
-            <div class=" text-gray-600">
-               <span class="text-sm ">{{ horaire.day }} </span>
+      <div v-for="horaire in horaires" :key="horaire.id" class="hover:bg-gray-100 transition duration-300">
+    <div class="grid grid-cols-2 gap-6 px-8 py-4 border-b border-gray-300">
+        <div class="text-gray-800 font-semibold">
+            <span class="text-sm">{{ horaire.day }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+            <div class="flex flex-col items-start">
+                <span class="text-sm text-gray-600">Ouverture</span>
+                <span class="text-sm text-gray-800 font-semibold">{{ horaire.opening_hour }}</span>
             </div>
-            <div class=" text-gray-600 ">
-               <span class="text-sm">{{ horaire.opening_hour }} </span>
-            <span>----</span>
-               <span class="text-sm ">{{ horaire.closing_hour }}</span>
+            <span class="mx-2 text-gray-500">----</span>
+            <div class="flex flex-col items-end">
+                <span class="text-sm text-gray-600">Fermeture</span>
+                <span class="text-sm text-gray-800 font-semibold">{{ horaire.closing_hour }}</span>
             </div>
-         </div>
-      </div>
+        </div>
+    </div>
+</div>
+<div class="grid grid-cols-2 gab-6">
+<button @click="open" type="button" class="py-2.5  px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add schedule</button>
 
-  <button @click="open" type="button" class="py-2.5  px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Ajouter Horaires</button>
- </div>
-
+<button  class="py-2.5  px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-red-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Delete Schedule</button>
+</div>
+</div>
 <div v-show="active==true" id="app" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
         <h1 class="text-2xl font-bold text-center text-gray-700">Horaires d'Ouverture du Restaurant</h1>
         <form @submit.prevent="soumettre" >
@@ -108,16 +114,9 @@
                     active.value = !active.value;
                 };
 
-               /* const toggleJour = (jour) => {
-    const normalizedJour = jour.toLowerCase(); // Normaliser en minuscules
-    const index = jours.value.indexOf(normalizedJour);
-    if (index === -1) {
-        jours.value.push(normalizedJour); // Ajouter le jour normalisé
-    } else {
-        jours.value.splice(index, 1); // Retirer le jour
-    }
-};*/
-
+                const close = () => {
+                    active.value = false;
+                };
 
 const soumettre = async () => {
     if (heure_ouverture.value >= heure_fermeture.value) {
@@ -135,27 +134,24 @@ const soumettre = async () => {
         });
 
         console.log(response.data);
+        close(); 
         alert("Horaire sauvegardé !");
     } catch (error) {
         console.error('Erreur lors de la soumission des horaires :', error);
         alert("Une erreur s'est produite lors de la sauvegarde des horaires.");
     }
 }
-               // return { nom, jours, heure_ouverture, heure_fermeture, soumettre };
-        
-               // Référence réactive pour stocker les horaires
+               
 const horaires = ref([]);
 
-// Fonction pour récupérer les restaurants
 const fetchHoraire = async () => {
   try {
     const restaurantId = store.getRestaurantId();
     const response = await axios.get(`http://localhost:3001/horaires/${restaurantId}`);
-    // Accéder aux données en utilisant response.data.data
     horaires.value = response.data.data;
 
   } catch (error) {
-    console.error(' TabOne :: fetchMenu :: ', error);
+    console.error(' horaire :: fetchHoraire :: ', error);
   }
 };       
 onMounted(fetchHoraire);        

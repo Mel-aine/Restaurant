@@ -1,7 +1,24 @@
 <template>
   <div >
-    
-    <form class="max-w-md mx-auto pt-7">   
+     <div class="max-w-full  bg-white shadow-2xl rounded-2xl overflow-hidden"> 
+    <div class="p-1 ">
+      <div class="flex flex-col items-center">
+      <button @click="showDrop=!showDrop" class="text-3xl font-semibold border hover:bg-gray-200 bg-orange-300 border-orange-400 rounded-xl px-8 py-1  text-gray-800 my-4 uppercase">schedules</button>
+    </div>
+      <ul v-if="showDrop" class="space-x-4 flex flex-row items-start mx-auto px-8">
+        <li
+          v-for="horaire in horaires"
+          :key="horaire.id"
+          class="flex  justify-between items-center space-x-5 p-2 bg-gray-100 rounded-2xl transition duration-300 ease-in-out hover:bg-orange-200"
+        >
+          <span class="font-semibold  text-gray-700">{{ horaire.day }} </span>
+          <span class="text-orange-600 font-semibold ">{{ horaire.opening_hour }} AM  --- {{ horaire.closing_hour }} PM </span>
+        </li>
+      </ul>
+    </div>
+   </div>  
+
+    <form class="max-w-md mx-auto pt-10">   
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
       <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -9,7 +26,7 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </div>
-        <input @input="searchMenu" v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Dish..." required />
+        <input @input="searchMenu" v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-orange-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Dish..." required />
       </div>
     </form>
     <div class="flex flex-col items-end mx-8 px-8">
@@ -19,12 +36,12 @@
         </svg> <span class="text-gray-950 font-semibold">( {{ cart.count }} )</span> </button>
     </div>
         
-        <div v-for="categorie in categories" :key="categorie.id_categorie"  id="accordion-flush"  data-accordion="collapse" data-active-classes=" bg-white  dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-          
+        <div v-for="categorie in categories" :key="categorie.id_categorie" class="py-20"  id="accordion-flush"  data-accordion="collapse" data-active-classes=" bg-white  dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+         
           
           <div class="flex justify-end pb-2 overflow-x-auto overflow-y-hidden ">
             <button class="flex flex-col justify-around h-24 w-28 p-4 rounded-lg shadow-lg drop-shadow-lg mr-5 cursor-pointer select-none transition-transform transform hover:scale-105">
-              <div class="text-black font-semibold text-sm   ">
+              <div class="text-orange-500 font-bold text-sm   ">
                 <h1 class="text-lg font-bold">{{ categorie.name }}</h1>
               </div>
               
@@ -33,44 +50,34 @@
             
             <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
           </div>
+          <div class=" max-w-4xl mx-auto my-2">
           
-          <div v-if="menuList.length > 0" >
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 overflow-x-auto overflow-y-hidden custom-scrollbar ">  
-              <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu"  data-aos="zoom-in-right" class="px-8 mx-auto  bg-white rounded-xl p-2 shadow-xl m-4 h-50 w-50 ">
-                <div class=" flex flex-col items-center ">
-                  <img class="mb-1 w-40 h-30 rounded-lg" :src= menuList.image  alt="Menu Item" />
-                </div>
-                <div class="p-1  ">
-                  <h5 class="mt-1 text-md font-bold flex flex-col items-start  text-orange-600 dark:text-white truncate text-md  uppercase ">{{ menuList.name }} </h5>
-                  <p class="text-gray-700 truncate">{{ menuList.description }}</p>
-                  
-                  <p  class="text-lg font-semibold text-orange-600 mt-4 mb-2"> ★ {{ menuList.price }} fcfa</p>
-                  <div v-if="isUserLoggedIn()" class="flex flex-col items-center">
-                    <button
-                    @click.prevent="   cart.add(menuList)"
-                    
-                    
-                    class="bg-orange-600 text-black w-full text-sm font-bold py-1 px-4 rounded-xl"
-                    >
-                    Add to Dish
-                  </button>
-                  
+        <div v-if="menuList.length > 0" >
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6   ">
+            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="bg-white space-x-5 flex flex-col justify-between px-3   rounded-xl p-2 shadow-xl  h-30 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
+              <div class=" flex flex-col items-center ">
+                 <img class="mb-1 w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
+              </div>
+              <div class="p-2">
+                <h2 class="text-xl text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
+                <p class="text-gray-700  text-center font-serif text-sm">{{ menuList.description }}</p>
+                <p  class="text-lg text-center font-semibold text-orange-600">★ {{ menuList.price }} FCFA</p>
+              </div>
+              <div>
+              <div v-if="isUserLoggedIn()" class="flex flex-col items-center">
+                    <button @click.prevent="   cart.add(menuList)"   class="bg-orange-600 text-black text-sm font-bold py-1 px-4 rounded-xl"  > Add to Dish </button>  
                 </div>
                 <div v-else class="flex flex-col items-center">
-                    <button @click.prevent="message"
-                    class="bg-orange-600 text-black w-full text-sm font-bold py-1 px-4 rounded-xl"
-                    >
-                    Add to Dish
+                    <button @click.prevent="message" class="bg-orange-600 text-black w-full text-sm font-bold py-1 px-4 rounded-xl"  > Add to Dish
                   </button>
-                  
                 </div>
-              </div>
             </div>
           </div>
-        </div> 
+        </div>
+      </div>
         <p v-else>Aucun menu disponible pour cette catégorie.</p>
-        </div>  
-      
+        </div>
+      </div>
       
       <!-- Main modal -->
       <div id="select-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -93,19 +100,34 @@
             
             <div class="p-4 md:p-5 " >
               <div v-for="item in cart.items" :key="item.id"   class="flex h-20 w-80 md:h-22 rounded-lg drop-shadow-md border-2  border-slate-300 p-2 my-3 text-sm mx-auto">
-                <img src="" alt="Image de " class="h-full object-cover aspect-square rounded-lg mr-2" />
-                <div class="flex flex-col font-semibold justify-between w-full">
-                  <div class="text-black flex justify-between h-full">
-                    <span>{{ item.name }}</span>   
+                <img :src=item.image alt="Image du menu" class="h-full object-cover aspect-square rounded-lg mr-2" />
+                <div class="flex flex-col font-semibold justify-between w-full translate-x-6">
+                  <div class="text-black flex justify-between h-full ">
+                    <span class="text-md text-center text-orange-500 font-bold uppercase" >{{ item.name }}</span>   
                   </div>
-                  <span class="text-greenlight">{{ item.price }} fcfa</span>
-                  <div class="flex justify-between text-sm h-full items-center">
-                    <span>
-                      <span class="text-greenlight">{{ item.quantity }} x </span>
+                  <span class="text-greenlight uppercase">{{ item.price }} fcfa</span>
+                  <div class="flex justify-between text-sm h-full items-center  ">
+                    <span>  
+<form class="max-w-xs mx-auto mb-2">
+    <div class="relative flex items-center">
+        <button @click.prevent="cart.decrement(item)" type="button" id="decrement-button" data-input-counter-decrement="counter-input" class="flex-shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+            <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+            </svg>
+        </button>
+        <input type="text" id="counter-input" data-input-counter class="flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" placeholder="" v-model= "item.quantity" required />
+        <button @click.prevent="cart.increment(item)" type="button" id="increment-button" data-input-counter-increment="counter-input" class="flex-shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+            <svg class="w-2.5 h-2.5 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+            </svg>
+        </button>
+    </div>
+</form>
+
                     </span> 
                   </div>
-                </div>
-                <button  @click.prevent="cart.remove(item.id_menu)" class="text-red-500 hover:text-red-600 transition-colors duration-300 font-medium">   Supprimer  </button>
+                </div>   
+                <button  @click.prevent="cart.remove(item.id_menu)" class="text-red-500 hover:text-red-600 hover:underline  transition-colors duration-300 font-medium">   Supprimer  </button>
               </div>
               <div class="max-w-md mx-auto mt-4 p-4 bg-gray-100 rounded-lg shadow">
                 <p class="text-lg font-semibold text-gray-900">Sous-total : <span class="text-green-600">{{ cart.subTotal }} fcfa</span></p>
@@ -167,6 +189,7 @@ import { useUserStore } from '/src/utils/useUserStore.js'
 import { computed } from 'vue';
 import { initFlowbite } from 'flowbite'
 import { Modal } from 'flowbite'
+import { store } from "../store/global";
 
 const route = useRoute(); 
 const cart = useCartStore();
@@ -176,6 +199,7 @@ const count = ref(0);
 const searchQuery = ref('');
 const userStore = useUserStore();
 const menuStore = useCartStore()
+const showDrop = ref(false);
 
 // initialize components based on data attribute selectors
 onMounted(() => {
@@ -239,14 +263,11 @@ const searchMenu = () => {
   }
 };
 
-
 const message = () => {
     alert("veuillez vous connectez !");
 };
 
-
-const isUserLoggedIn = () => {
-  
+const isUserLoggedIn = () => { 
   return userStore.isLoggedIn; 
 };
 
@@ -268,6 +289,20 @@ if (isUserLoggedIn()) {
   //     notes: dishMemory.notes
   //   };
 
+                 
+const horaires = ref([]);
+
+const fetchHoraire = async () => {
+  try {
+    const restaurantId = store.getRestaurantId();
+    const response = await axios.get(`http://localhost:3001/horaires/${restaurantId}`);
+    horaires.value = response.data.data;
+
+  } catch (error) {
+    console.error(' horaire :: fetchHoraire :: ', error);
+  }
+};       
+onMounted(fetchHoraire);       
 
 
 
@@ -275,18 +310,5 @@ if (isUserLoggedIn()) {
   </script>
   
   <style scoped>
- .custom-scrollbar {
-    overflow: auto;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-     /* scrollbar height*/
-    width: 8px;
-    background-color: transparent;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: orange; 
-    border-radius: 10px;
-  }
+ 
   </style>

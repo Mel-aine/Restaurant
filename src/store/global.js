@@ -21,11 +21,15 @@ export const store = reactive({
   },
   
   getRestaurantId() {
-    return this.global?.restaurantId || this.global?.user?.Restaurants[0]?.id_restaurant
+ 
+    return this.global?.user?.Restaurants[0]?.id_restaurant
+    // this.global?.restaurantId || this.global?.user?.Restaurants[0]?.id_restaurant
+
     ;
 
   },
 
+  
   
   setRestaurant(restaurant) {
     console.log('GLOBAL:::: Setting new restaurant :: ', restaurant);
@@ -47,8 +51,19 @@ export const store = reactive({
   getCategorieId() {
     return this.global?.categorieId;
   },
+
+  setMenuId(menuId) {
+    console.log('GLOBAL:::: Setting new menu id :: ', menuId);
+    
+    this.global = {...this.global, menuId};
+  },
+  
+  getMenuId() {
+    return this.global?.menuId;
+  },
   setUser(user) {
     console.log('GLOBAL:::: Setting new user :: ', user);
+    console.log('GLOBAL:::: Setting new user :: ', user.Restaurants[0].id_restaurant);
     
     this.global = {...this.global, user};
     this.global.hasUser=true;

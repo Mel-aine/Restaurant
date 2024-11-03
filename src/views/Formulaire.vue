@@ -151,6 +151,29 @@ const onFileChange = (event) => {
 
 
 
+// const uploadFile = async () => {
+//   if (!file.value) return null;
+
+//   const storageRef = stRef(storage, "files/" + file.value.name);
+//   try {
+//     const snapshot = await uploadBytes(storageRef, file.value);
+//     // Obtenez l'URL de téléchargement
+//     const downloadURL = await getDownloadURL(storageRef);
+    
+
+//     const newFileRef = push(databaseReference);
+//     await set(newFileRef, {
+//       name: file.value.name,
+//       url: downloadURL // Sauvegardez l'URL dans la base de données
+//     });
+//     return snapshot, downloadURL; // Renvoie l'URL pour utilisation //snapshot; // Renvoie le snapshot pour vérifier le succès
+//   } catch (error) {
+//     console.error("Upload failed:", error);
+//     throw error; // Lève l'erreur pour la gestion dans Register
+//   }
+// };
+
+
 const uploadFile = async () => {
   if (!file.value) return null;
 
@@ -160,13 +183,8 @@ const uploadFile = async () => {
     // Obtenez l'URL de téléchargement
     const downloadURL = await getDownloadURL(storageRef);
     
-
-    const newFileRef = push(databaseReference);
-    await set(newFileRef, {
-      name: file.value.name,
-      url: downloadURL // Sauvegardez l'URL dans la base de données
-    });
-    return snapshot, downloadURL; // Renvoie l'URL pour utilisation //snapshot; // Renvoie le snapshot pour vérifier le succès
+    // Retournez simplement l'URL
+    return downloadURL; 
   } catch (error) {
     console.error("Upload failed:", error);
     throw error; // Lève l'erreur pour la gestion dans Register
@@ -175,143 +193,45 @@ const uploadFile = async () => {
 
 
 
-
-
-// const uploadFile = async () => {
-//   if (!file.value) return null;
-  
-//   const storageRef = stRef(storage, "files/" + file.value.name);
-//   try {
-//    // const snapshot = await uploadBytes(storageRef, file.value);
-//     // Obtenez l'URL de téléchargement
-//     const downloadURL = await getDownloadURL(storageRef);
-//     const newFileRef = push(databaseReference);
-//     await set(newFileRef, {
-//       name: file.value.name,
-//       url: downloadURL // Sauvegardez l'URL dans la base de données
-      
-//     });
-//     return  downloadURL; // Renvoie l'URL pour utilisation //snapshot; // Renvoie le snapshot pour vérifier le succès
-//   } catch (error) {
-//     console.error("Upload failed:", error);
-//     throw error; // Lève l'erreur pour la gestion dans Register
-//   }
-// };
-
-
-
-//  const Register= async () => {
-//    try {
+  const Register= async () => {
+    try {
     
-//      const auth = getAuth();
-//    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+    const auth = getAuth();
+    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
     
     
 // //     // Étape 1 : Upload du fichier
-//      const logo = await uploadFile(); 
+     const logo = await uploadFile(); 
     
 //      // Étape 2 : Soumission des données du formulaire
-//      const response = await axios.post('http://localhost:3001/restaurants/form', {
-//        Email: email.value,
-//        Password: password.value,
-//        FirstName: firstname.value,
-//        LastName: lastname.value,
-//        Phone: phone.value,
-//        Address: address.value,
-//       Service: service.value,
-//        Website: website.value,
-//        Name: name.value,
-//        Logo: logo 
+      const response = await axios.post('http://localhost:3001/restaurants/form', {
+        Email: email.value,
+        Password: password.value,
+        FirstName: firstname.value,
+        LastName: lastname.value,
+        Phone: phone.value,
+        Address: address.value,
+       Service: service.value,
+        Website: website.value,
+        Name: name.value,
+        Logo: logo
       
-//      });
+      });
     
-//      console.log(response.data);
-//      store.setRestaurantId(response.data.data);
-//      const id = store.getRestaurantId()
-//      alert(id)
+      console.log(response.data);
+      store.setRestaurantId(response.data.data);
+      alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+      router.push('/');
     
-//      alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-//      router.push('/');
-    
-//    } catch (error) {
-//      if (error.response) {
-//        erreur.value = error.response.data.message || 'Erreur lors de l\'inscription';
-//      } else {
-//        erreur.value = 'Erreur d\' Enregistrement';
-//      }
-//   }
-// };
-
-const Register = async () => {
-  try {
-    const auth = getAuth();
-
-    // Vérifiez que tous les champs sont remplis
-    if (!email.value || !password.value || !firstname.value || !lastname.value) {
-      erreur.value = "Tous les champs doivent être remplis.";
-      return;
-    }
-
-    console.log("Étape 1 : Création de l'utilisateur");
-    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-    console.log("Utilisateur créé :", userCredential);
-    
-    console.log("Étape 2 : Upload du fichier");
-    //const logo = await uploadFile(); 
-    console.log("Fichier uploadé :", logo);
-
-    // Vérifiez la valeur de logo
-    // if (!logo) {
-    //   throw new Error("L'upload du fichier a échoué, logo est indéfini.");
-    // }
-
-    console.log("Étape 3 : Soumission des données du formulaire");
-    const postData = {
-      Email: email.value,
-      Password: password.value,
-      FirstName: firstname.value,
-      LastName: lastname.value,
-      Phone: phone.value,
-      Address: address.value,
-      Service: service.value,
-      Website: website.value,
-      Name: name.value,
-      Logo: "logo.png"
-    };
-
-    console.log("Données à envoyer :", postData);
-
-    const response = await axios.post('http://localhost:3001/restaurants/form', postData);
-    console.log(response.data);
-    
-    store.setRestaurantId(response.data.data);
-    const id = store.getRestaurantId();
-    alert(`Votre ID de restaurant est : ${id}`);
-    
-    alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-    
-    // Réinitialisation des champs
-    email.value = '';
-    password.value = '';
-    firstname.value = '';
-    lastname.value = '';
-    phone.value = '';
-    address.value = '';
-    service.value = '';
-    website.value = '';
-    name.value = '';
-    
-    router.push('/');
-    
-  } catch (error) {
-    if (error.response) {
-      erreur.value = error.response.data.message || 'Erreur lors de l\'inscription';
-    } else {
-      erreur.value = 'Erreur d\'enregistrement : ' + error.message;
-    }
-    console.error("Erreur d'inscription :", error);
-  }
-};
+    } catch (error) {
+      console.log(error); 
+      if (error.response) {
+        erreur.value = error.response.data.message || 'Erreur lors de l\'inscription';
+      } else {
+        erreur.value = 'Erreur d\' Enregistrement';
+      }
+   }
+ };
 
 
 
