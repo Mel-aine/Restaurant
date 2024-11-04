@@ -176,7 +176,7 @@ const updateRestaurant = async () => {
     console.log("id du restaurant",restaurantId);
     console.log('Restaurant:', restaurant);
 
-    const response = await axios.put(`http://localhost:3001/restaurants/${restaurantId}`, {
+    const response = await axios.put(`https://proj-kappa-green.vercel.app:3001/restaurants/${restaurantId}`, {
       
       name: restaurant.value.name,
       phone: restaurant.value.phone,

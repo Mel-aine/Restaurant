@@ -3,9 +3,9 @@
      <div class="max-w-full  bg-white shadow-2xl rounded-2xl overflow-hidden"> 
     <div class="p-1 ">
       <div class="flex flex-col items-center">
-      <button @click="showDrop=!showDrop" class="text-3xl font-semibold border hover:bg-gray-200 bg-orange-300 border-orange-400 rounded-xl px-8 py-1  text-gray-800 my-4 uppercase">schedules</button>
+      <button  class="text-3xl font-semibold border hover:bg-gray-200 bg-orange-300 border-orange-400 rounded-xl px-8 py-1  text-gray-800 my-4 uppercase">schedules</button>
     </div>
-      <ul v-if="showDrop" class="space-x-4 flex flex-row items-start mx-auto px-8">
+      <ul  class="space-x-4 flex flex-row items-start mx-auto px-8">
         <li
           v-for="horaire in horaires"
           :key="horaire.id"
@@ -217,7 +217,7 @@ const categories = ref([])
  const fetchCategorie = async () => {
   try {
      const restaurantId =route.params.id_restaurant; // Récupérer l'ID du restaurant depuis l'URL;
-    const response = await axios.get(`http://localhost:3001/categorie/${restaurantId}`);
+    const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/categorie/${restaurantId}`);
 //     // Accéder aux données en utilisant response.data.data
      categories.value = response.data.data;
      categories.value.forEach(e=>{
@@ -237,7 +237,7 @@ const categories = ref([])
  const fetchMenu = async (categorieId) => {
    try {
     console.log(categorieId);
-     const response = await axios.get(`http://localhost:3001/menus/${categorieId}`);
+     const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/menus/${categorieId}`);
      console.log("Réponse de l'API:: fetchMenu", response);
        console.log("Données récupérées:", response.data);
       menuList.value = response.data.data
@@ -295,7 +295,7 @@ const horaires = ref([]);
 const fetchHoraire = async () => {
   try {
     const restaurantId = store.getRestaurantId();
-    const response = await axios.get(`http://localhost:3001/horaires/${restaurantId}`);
+    const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/horaires/${restaurantId}`);
     horaires.value = response.data.data;
 
   } catch (error) {

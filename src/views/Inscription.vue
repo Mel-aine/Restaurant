@@ -144,7 +144,7 @@ createUserWithEmailAndPassword(auth, email.value, password.value)
     // ...
   }) 
 
-        const response = await axios.post('http://localhost:3001/users/form', {
+        const response = await axios.post('https://proj-kappa-green.vercel.app:3001/users/form', {
             Email: email.value,
             Password: password.value,
             FirstName : firstname.value,

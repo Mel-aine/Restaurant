@@ -38,6 +38,9 @@
       </div>
      </main>
 </div>
+
+
+
 </div> 
 
 </template>
@@ -64,7 +67,7 @@ const restoStore = useCartStore();
  //Fonction pour récupérer les restaurants
  const fetchRestaurants = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/restaurants/resto');
+    const response = await axios.get('https://proj-kappa-green.vercel.app:3001/restaurants/resto');
     restaurants.value = response.data.data;
     restoStore.restoMemory = response.data.data
     console.log("resto",restoStore.restoMemory );
