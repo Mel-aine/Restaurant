@@ -3,7 +3,7 @@
 <div class="md:flex ">
     <ul class="flex-column  my-auto h-screen p-4   space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
         <li v-for="(tab, index) in tabs" :key="index" class="mb-2 text-semibold text-gray-950 text-md">
-        <button  @click="selectTab(tab)"   class="inline-flex  border border-orange-500 px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-orange-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white" >
+        <button  @click="selectTab(tab)"  :class="{ 'bg-orange-500 text-white': selectedTab === tab}"   class="inline-flex  border border-orange-500 px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-orange-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white" >
           <svg v-if="tab.icon" class=" w-6 h-6   text-zinc-500 me-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                <path :d="tab.icon" />
            </svg>

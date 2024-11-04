@@ -157,7 +157,7 @@ const openModal = () => {
   restaurant.value.phone = store.global.user.Restaurants[0].phone;
   restaurant.value.website = store.global.user.Restaurants[0].website;
   restaurant.value.service = store.global.user.Restaurants[0].service;
-  restaurant.value.email = store.global.user.Restaurants[0].email;
+  restaurant.value.email = store.global.user.email;
   restaurant.value.logo = store.global.user.Restaurants[0].logo;
   isModalOpen.value = true;
 };
@@ -183,7 +183,7 @@ const updateRestaurant = async () => {
       address: restaurant.value.address,
       email: restaurant.value.email,
       website:restaurant.value.website,
-      logo: "logo",
+      logo: "logo",//comment modifier une image dans firebase
     });
     
     updatedRestaurant.value = response.data; 

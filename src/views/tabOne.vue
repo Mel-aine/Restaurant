@@ -78,7 +78,7 @@
 
 
  <!-- Main modal menu update-->
- <div id="authentication-modal" tabindex="-1"  aria-hidden="true"  v-if="isModalOpen" class="inset-0 bg-gray-950 bg-opacity-50 flex shadow overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full  max-h-full"  >
+ <div id="authentication-modal" tabindex="-1"   v-if="isModalOpen" class="inset-0 bg-gray-950 bg-opacity-50 flex shadow overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full  max-h-full"  >
     <div class="relative p-4 w-full max-w-md max-h-full">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -101,18 +101,18 @@
         <input  class="mx-8 translate-x-2"  type="file"  id="myFile"  name="filename"  @change="onFileChange" />
       </div> 
       <label for="name1" class="block text-orange-500 text-sm font-bold mb-2" >Name of the dish</label >
-      <input v-model="Name" type="text" id="name1" placeholder="Enter name of the dish" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required />
+      <input v-model="menu.name" type="text" id="name1" placeholder="Enter name of the dish" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required />
       <div class="mb-4">
         <label for="description1" class="block text-orange-500 text-sm font-bold mb-2" >Description</label >
-        <textarea v-model="Description" id="description1" placeholder="Enter a description" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required ></textarea>
+        <textarea v-model="menu.description" id="description1" placeholder="Enter a description" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required ></textarea>
       </div>
       <div class="mb-4">
         <label for="price1" class="block text-orange-500 text-sm font-bold mb-2" >Price</label >
-        <input  v-model="Price"  type="number"  id="price1"  placeholder="Enter the price" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required />
+        <input  v-model="menu.price"  type="number"  id="price1"  placeholder="Enter the price" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" required />
       </div>
       <div class="flex justify-center">
             <button @click="closeModal" type="button" class="mr-2 py-2 px-4 bg-gray-300 rounded">Annuler</button>
-            <button type="submit" class="py-2 px-4 bg-orange-500 text-white rounded">Enregistrer</button>
+            <button @click.prevent="updateMenu(selectedMenuId) " type="submit" class="py-2 px-4 bg-orange-500 text-white rounded">Enregistrer</button>
           </div>
   </form>
 </div>
@@ -423,22 +423,61 @@ class="inset-0 bg-gray-950 bg-opacity-50 flex shadow overflow-y-auto overflow-x-
   };
 
   const menu = ref({
-  Name: "",
-  Description: "",
-  Price: "",
+  name: "",
+  description: "",
+  price: "",
 });
 
 
+const openModal = (menuId) => {
+  console.log("Menu ID:", menuId); // Vérifiez quel ID est passé
+  selectedMenuId.value = menuId;
+  console.log("Dish Memory:", menuStore.dishMemory);
 
-
-const openModal = (men) => {
- menu.value.Name = menuList.name;
-  menu.value.Description = menuList.description;
-  menu.value.Price = menuList.price;
-  isModalOpen.value = true;
-};
+  // Utilisez id_menu pour trouver le plat
+  const selectedDish = menuStore.dishMemory.find(dish => dish.id_menu === menuId);
   
+  if (selectedDish) {
+    menu.value.name = selectedDish.name;
+    menu.value.description = selectedDish.description;
+    menu.value.price = selectedDish.price;
+    isModalOpen.value = true;
+  } else {
+    alert("Plat non trouvé !");
+  }
+};
 
+
+const updatedMenu = ref(null);
+
+// Fonction pour mettre à jour le restaurant
+const updateMenu = async (menuId) => {
+  try {
+    selectedMenuId.value = menuId;
+    console.log("id du menu",menuId);
+    const response = await axios.put(`http://localhost:3001/menus/${menuId}`, {   
+      name: menu.value.name,
+      description: menu.value.description,
+      image: "image",
+      price: menu.value.price,
+    });
+    
+    updatedMenu.value = response.data; 
+    console.log("updated menu",updatedMenu.value);
+    
+    reloadRoute();
+    closeModal();
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour:', error);
+  }
+};
+    
+ 
+
+
+const reloadRoute = () => {
+  router.go(0); 
+};
 
 
 
@@ -475,16 +514,13 @@ const openModal = (men) => {
     }
   };
   
-  // Fonction pour récupérer les restaurants
+  
   const fetchCategorie = async () => {
     try {
       const restaurantId = store.getRestaurantId();
-      //const response = await axios.get('http://localhost:3001/categorie/');
       const response = await axios.get(`http://localhost:3001/categorie/${restaurantId}`);
       // Accéder aux données en utilisant response.data.data
       categories.value = response.data.data;
-      
-      
       showMenu.value = response.data.data.map(item => false);
     } catch (error) {
       console.error('Erreur lors de la récupération des restaurants:', error);
@@ -497,7 +533,7 @@ const openModal = (men) => {
     
     try {
       const categorieId = store.getCategorieId(); // Récupérer l'ID de la catégorie
-      const response = await axios.get(`http://localhost:3001/menus/${categorieId}/menu`); // Déclarez response ici
+      const response = await axios.get(`http://localhost:3001/menus/${categorieId}/menu`); 
       console.log("Réponse de l'API:", response);
       console.log("response", response.data.data);
       menuList.value = response.data.data; 
@@ -568,7 +604,7 @@ const uploadFile = async () => {
       
       console.log("menu en registree " , response.data);
 
-      store.setMenuId(response.data); 
+      store.setMenu(response.data); 
       alert("menu sauvegardé ! ");
 
      
