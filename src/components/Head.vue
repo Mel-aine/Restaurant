@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="bg-orange-400 text-gray-950 ">
-      <div class="flex justify-between px-8 md:justify-between mx-auto p-2">
+      <div class="flex flex-col md:flex-row justify-between px-4 md:px-8 mx-auto p-2">
         <div class="flex items-start space-x-2">
           <div class="flex items-center">
             <!-- <div class="  max-w-screen-xl flex flex-wrap items-center md:justify-between mx-auto p-1">-->
@@ -15,7 +15,7 @@
         </div>
         <!-- !store.global?.hasUser -->
         <div v-if="!user.isLoggedIn"
-          class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
+          class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center mt-2 md:mt-0">
           <div class="space-x-5">
             <a href="">
               <button data-modal-target="authentication-modal" type="button" @click.prevent="open1" class="text-gray-950 text-md font-meduim btn-open-modal" >Restaurateur space</button >
