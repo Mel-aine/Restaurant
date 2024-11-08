@@ -455,7 +455,7 @@ const updateMenu = async (menuId) => {
   try {
     selectedMenuId.value = menuId;
     console.log("id du menu",menuId);
-    const response = await axios.put(`https://proj-kappa-green.vercel.app:3001/menus/${menuId}`, {   
+    const response = await axios.put(`https://proj-bdjg.onrender.com/menus/${menuId}`, {   
       name: menu.value.name,
       description: menu.value.description,
       image: "image",
@@ -486,10 +486,10 @@ const reloadRoute = () => {
     try {
       
       // Étape 2 : Soumission des données du formulaire
-      // const response = await axios.post('https://proj-kappa-green.vercel.app:3001/categorie/form', {
+      // const response = await axios.post('https://proj-bdjg.onrender.com/categorie/form', {
       const  id_restaurant = store.getRestaurantId()
       console.log('GLOB ',id_restaurant)
-      const response = await axios.post(`https://proj-kappa-green.vercel.app:3001/categorie/${id_restaurant}/form`, {
+      const response = await axios.post(`https://proj-bdjg.onrender.com/categorie/${id_restaurant}/form`, {
         Description: description.value,
         Name: nom.value,
         id_restaurant: id_restaurant
@@ -518,7 +518,7 @@ const reloadRoute = () => {
   const fetchCategorie = async () => {
     try {
       const restaurantId = store.getRestaurantId();
-      const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/categorie/${restaurantId}`);
+      const response = await axios.get(`https://proj-bdjg.onrender.com/categorie/${restaurantId}`);
       // Accéder aux données en utilisant response.data.data
       categories.value = response.data.data;
       showMenu.value = response.data.data.map(item => false);
@@ -533,7 +533,7 @@ const reloadRoute = () => {
     
     try {
       const categorieId = store.getCategorieId(); // Récupérer l'ID de la catégorie
-      const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/menus/${categorieId}/menu`); 
+      const response = await axios.get(`https://proj-bdjg.onrender.com/menus/${categorieId}/menu`); 
       console.log("Réponse de l'API:", response);
       console.log("response", response.data.data);
       menuList.value = response.data.data; 
@@ -553,7 +553,7 @@ const reloadRoute = () => {
   const deleteMenu = async (menuId) => {
       try {
        
-        await axios.delete(`https://proj-kappa-green.vercel.app:3001/menus/${menuId}`); 
+        await axios.delete(`https://proj-bdjg.onrender.com/menus/${menuId}`); 
         closePopup();
         fetchMenu ();
       } catch (error) {
@@ -592,7 +592,7 @@ const uploadFile = async () => {
 
      const image = await uploadFile();
     
-      const response = await axios.post('https://proj-kappa-green.vercel.app:3001/menus/form', {
+      const response = await axios.post('https://proj-bdjg.onrender.com/menus/form', {
         Dish: image ,
         Description: formDescription.value,
         Name: formName.value,

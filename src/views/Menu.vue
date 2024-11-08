@@ -217,7 +217,7 @@ const categories = ref([])
  const fetchCategorie = async () => {
   try {
      const restaurantId =route.params.id_restaurant; // Récupérer l'ID du restaurant depuis l'URL;
-    const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/categorie/${restaurantId}`);
+    const response = await axios.get(`https://proj-bdjg.onrender.com/categorie/${restaurantId}`);
 //     // Accéder aux données en utilisant response.data.data
      categories.value = response.data.data;
      categories.value.forEach(e=>{
@@ -237,7 +237,7 @@ const categories = ref([])
  const fetchMenu = async (categorieId) => {
    try {
     console.log(categorieId);
-     const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/menus/${categorieId}`);
+     const response = await axios.get(`https://proj-bdjg.onrender.com/menus/${categorieId}`);
      console.log("Réponse de l'API:: fetchMenu", response);
        console.log("Données récupérées:", response.data);
       menuList.value = response.data.data
@@ -295,7 +295,7 @@ const horaires = ref([]);
 const fetchHoraire = async () => {
   try {
     const restaurantId = store.getRestaurantId();
-    const response = await axios.get(`https://proj-kappa-green.vercel.app:3001/horaires/${restaurantId}`);
+    const response = await axios.get(`https://proj-bdjg.onrender.com/horaires/${restaurantId}`);
     horaires.value = response.data.data;
 
   } catch (error) {

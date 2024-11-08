@@ -190,7 +190,7 @@ const uploadFile = async () => {
      const logo = await uploadFile(); 
     
 //      // Étape 2 : Soumission des données du formulaire
-      const response = await axios.post('https://proj-kappa-green.vercel.app:3001/restaurants/form', {
+      const response = await axios.post('https://proj-bdjg.onrender.com/restaurants/form', {
         Email: email.value,
         Password: password.value,
         FirstName: firstname.value,
