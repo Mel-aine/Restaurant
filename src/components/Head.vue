@@ -370,7 +370,7 @@ const connexion = async () => {
   const userStore = useUserStore(); 
   try {
   
-      const response = await axios.post("http://localhost:3001/users/login", {
+      const response = await axios.post("https://proj-bdjg.onrender.com/users/login", {
         Email: email.value,
         Password: password.value,
       });
