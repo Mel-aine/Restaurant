@@ -69,7 +69,12 @@ export default {
     };
   },
   created() {
-    this.selectedTab = this.tabs[0]; // Sélectionner le premier onglet par défaut
+   const savedTab = localStorage.getItem('selectedTab');
+    if (savedTab) {
+      this.selectedTab = this.tabs.find(tab => tab.name === savedTab) || this.tabs[0]; // Sélectionner l'onglet enregistré ou le premier onglet par défaut
+    } else {
+      this.selectedTab = this.tabs[0]; // Sélectionner le premier onglet par défaut
+    }
   },
   components: {
     tabOne,
@@ -81,6 +86,7 @@ export default {
   methods: {
     selectTab(tab) {
       this.selectedTab = tab;
+      localStorage.setItem('selectedTab', tab.name); 
     },
     toggleDropdown() {
         this.isDropdownOpen = !this.isDropdownOpen; // Basculer l'état du dropdown

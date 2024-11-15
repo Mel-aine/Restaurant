@@ -64,7 +64,7 @@ export const store = reactive({
 
   setUser(user) {
     console.log('GLOBAL:::: Setting new user :: ', user);
-    console.log('GLOBAL:::: Setting new user :: ', user.Restaurants[0].id_restaurant);
+   // console.log('GLOBAL:::: Setting new user :: ', user.Restaurants[0].id_restaurant);
     
     this.global = {...this.global, user};
     this.global.hasUser=true;

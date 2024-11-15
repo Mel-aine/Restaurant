@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           this.isLoggedIn = true;
           this.userInfo = userCredential.user; // Stockez les informations de l'utilisateur
+          return userCredential.user;
         } catch (error) {
           console.error('Erreur de connexion:', error.message);
         //  alert("email or password incorrect");

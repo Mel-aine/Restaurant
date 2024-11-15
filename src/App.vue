@@ -21,7 +21,9 @@ onMounted( async () => {
 <Head/>
 </div>
   <router-view/>
+ 
   <div class=" ">
+    
   <Footer/>
   
 </div>
