@@ -159,7 +159,30 @@
 </div>-->
 <div class="bg-orange-100 min-h-screen"> 
      <main class="container mx-auto px-4 p-4">
-      <h1 class="uppercase text-orange-500 flex flex-col items-center py-10 text-2xl font-extrabold">Discover Restaurants</h1>
+      <div class="flex justify-between items-center py-10 mx-8">
+    <!-- Title Section -->
+    <h1 class="uppercase text-orange-500 text-2xl font-extrabold">Discover Restaurants</h1>
+    
+    <!-- Search Form Section -->
+    <form class="flex items-center w-full sm:w-auto">
+        <label for="default-search" class="sr-only">Search</label>
+        <div class="relative w-full sm:w-64">
+            <!-- Search Icon -->
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <!-- Search Input -->
+            <input v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Yaoundé, Douala..." required />
+            <!-- Search Button -->
+            <button @click.prevent="searchRestaurant" type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-orange-500 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+                Search
+            </button>
+        </div>
+    </form>
+</div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class="bg-white  rounded-xl border border-orange-400 shadow-xl  p-2 h-30 w-60 overflow-hidden transition-transform transform hover:scale-105">
           <div class=" flex flex-col items-center">
