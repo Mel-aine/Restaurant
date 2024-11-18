@@ -2,10 +2,14 @@
   <div >
      <div class="max-w-full  flex flex-col md:flex-row justify-between px-4 py-2   bg-white shadow-2xl rounded-2xl overflow-hidden"> 
      <div class="p-1  ">
-     <!-- <div class="flex flex-col items-center">
-      <button  class="text-3xl font-semibold border hover:bg-gray-200 bg-orange-300 border-orange-400 rounded-xl px-8 py-1  text-gray-800 my-4 uppercase">schedules</button>
-    </div> -->
-      <ul  class="space-x-4  flex flex-col md:flex-row items-start mx-auto px-2">
+      <div v-if="isLoading" role="status">
+    <svg aria-hidden="true" class="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span class="sr-only">Loading...</span>
+</div>
+      <ul v-else class="space-x-4  flex flex-col md:flex-row items-start mx-auto px-2">
         <li
           v-for="horaire in horaires"
           :key="horaire.id_horaire"
@@ -17,19 +21,22 @@
       </ul>
     </div>
 <div class="mt-4 md:mt-0">
-  
-      <div v-if="isUserLoggedIn">
-        <button @click="openModal" class=" border rounded-full p-2 px-2 border-orange-400" type="button" >
-        <svg class="h-8 w-8 text-orange-500 inline-flex"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <div v-if="isUserLoggedIn">
+      <button @click="openModal" class="border rounded-full p-2 px-2 border-orange-400" type="button">
+        <svg class="h-8 w-8 text-orange-500 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg> <span class="text-gray-950 font-semibold">( {{ cart.count }} )</span> </button>
-      </div>
-          <div v-else class="flex flex-col items-center">
-                    <button @click="message" class=" border rounded-full p-2 px-2 border-orange-400"   > <svg class="h-8 w-8 text-orange-500 inline-flex"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        </svg>
+        <span class="text-gray-950 font-semibold">( {{ cart.count }} )</span>
+      </button>
+    </div>
+    <div v-else class="flex flex-col items-center">
+      <button @click.prevent="message" class="border rounded-full p-2 px-2 border-orange-400">
+        <svg class="h-8 w-8 text-orange-500 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg> <span class="text-gray-950 font-semibold">( {{ cart.count }} )</span>
-                    </button>
-          </div>  
+        </svg>
+        <span class="text-gray-950 font-semibold">( {{ cart.count }} )</span>
+      </button>
+    </div>
     </div> 
     </div> 
 
@@ -63,13 +70,13 @@
           <div class=" max-w-4xl mx-auto ">
           
         <div v-if="menuList.length > 0" >
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6   ">
-            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="bg-white space-x-5 flex flex-col justify-between px-3   rounded-xl p-2 shadow-xl  h-30 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 mx-auto  ">
+            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="   bg-white space-x-5 flex flex-col justify-between px-3   rounded-xl p-2 shadow-xl  h-25 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
               <div class=" flex flex-col items-center ">
-                 <img class="mb-1 w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
+                 <img class=" w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
               </div>
-              <div class="p-2">
-                <h2 class="text-xl text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
+              <div class="">
+                <h2 class="text-lg text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
                 <p class="text-gray-700  text-center font-serif text-sm">{{ menuList.description }}</p>
                 <p  class="text-lg text-center font-semibold text-orange-600">★ {{ menuList.price }} FCFA</p>
               </div>
@@ -99,7 +106,7 @@
               <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                 Menu
               </h3>
-              <button @click="closeModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="select-modal">
+              <button @click="closeModal" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
@@ -205,12 +212,12 @@
             <form class="space-y-4" action="" @submit.prevent="handleLogin" >
               <p v-if="errorMessage" class="text-red-500 font-serif ">{{ errorMessage }}</p>
               <div>
-                <label for="email1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"  >Email</label >
-                <input  type="email"  v-model="email1" required id="email1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com"   autocomplete="username"  />
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"  >Email</label >
+                <input  type="email"  v-model="email1" required id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com"   autocomplete="username"  />
               </div>
               <div>
-                <label  for="password1"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"  >Password</label >
-                <input  type="password"   v-model="password1"  required    id="password1"  placeholder="••••••••"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"   autocomplete="current-password" />
+                <label  for="password"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"  >Password</label >
+                <input  type="password"   v-model="password1"  required    id="password"  placeholder="••••••••"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"   autocomplete="current-password" />
               </div>
                 <button  :disabled="isLoading" type="submit" class="w-full  text-white bg-orange-700 hover:bg-white hover:text-orange-500 border hover:border-orange-500 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800" >
                 Sign in
@@ -263,6 +270,7 @@ const searchQuery = ref('');
 const userStore = useUserStore();
 const menuStore = useCartStore()
 const showModal = ref(false);
+
 
 
 
@@ -343,11 +351,17 @@ const close = () => {
 // };
 
 
-// const isUserLoggedIn = computed(() => userStore.isLoggedIn);
+ const isUserLoggedIn = computed(() => {
+  const userEmail = localStorage.getItem('userEmail1'); 
+      return userEmail !== null ; 
+ });
 
-const isUserLoggedIn = computed(() => {
-  return localStorage.getItem('userEmail1') !== null;
-});
+
+// const isUserLoggedIn = computed(() => {
+//   const userEmail = localStorage.getItem('userEmail1'); 
+//   return userEmail !== null && userStore.isLoggedIn; 
+// });
+
 
 
 
@@ -357,22 +371,15 @@ if (isUserLoggedIn) {
   console.log('L\'utilisateur n\'est pas connecté.');
 }
 
-  // const passerCommande = async () => {
-  //   const order = {
-  //     user_id: user.id,
-  //     restaurant_id: route.params.id_restaurant,
-  //     items: cart.items,
-  //     total: cart.total,
-  //     payment_method: dishMemory.paymentMethod,
-  //     address: dishMemory.address,
-  //     notes: dishMemory.notes
-  //   };
 
                  
 const horaires = ref([]);
 
+
 const fetchHoraire = async () => {
+  isLoading.value = true;  
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const restaurantId = route.params.id_restaurant;
     const response = await axios.get(`https://proj-bdjg.onrender.com/horaires/${restaurantId}`);
     horaires.value = response.data.data;
@@ -380,7 +387,9 @@ const fetchHoraire = async () => {
 
   } catch (error) {
     console.error(' Menu :: fetchHoraire :: ', error);
-  }
+  }finally {
+        isLoading.value = false; 
+      }
 };       
 onMounted(fetchHoraire);       
 
@@ -439,6 +448,7 @@ const handleLogin = async () => {
      password1.value = '';
      errorMessage.value = ""; 
      close();
+     window.location.reload();
     } else {
       throw new Error("Échec de la connexion : utilisateur non authentifié.");
     }

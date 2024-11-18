@@ -1,48 +1,31 @@
 <template>
 <div class="">
 
- <!--<div class="relative  overflow-hidden h-50 md:h-50 ]">  w-full  bg-cover bg-center bg-no-repeat bg-[url('assets/cover.jpg')je dois faire un diaspo -->
-  <!-- <div class="px-4 mx-auto  text-center py-24 lg:py-56 md:py-20 sm:py-20"> -->
-  
+ 
  <!-- Carousel -->
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden md:h-96">
-        <!-- Item 1 with header and paragraph -->
-        <!-- <div class="hidden duration-700 ease-in-out relative" data-carousel-item>
-            <img src="../assets/image4.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            
-    
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-                <div class="">
-                    
-                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800">
-                        Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span>
-                    </h1>
-                    <p class="mb-4 text-2xl font-extrabold text-gray-800">Search for restaurants and place your orders</p> 
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Item 2 -->
-        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+    <div class="relative h-56 overflow-hidden md:h-96 bg-[url('assets/cover.jpg')]">
+        
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out " data-carousel-item>
             <img src="../assets/image6.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         
          <!-- Text content over the image -->
          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                 <div class="">
                     
-                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800">
+                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white">
                         Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span>
                     </h1>
-                    <p class="mb-4 text-2xl font-extrabold text-gray-800">Search for restaurants and place your orders</p> 
+                    <p class="mb-4 text-2xl font-extrabold text-white">Search for restaurants and place your orders</p> 
                 </div>
             </div>
         
         
           </div>
 
-        <!-- Item 3 -->
+        <!-- Item 2-->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
             <img src="../assets/image5.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
         
@@ -50,10 +33,10 @@
          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                 <div class="">
                     
-                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800">
+                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white">
                         Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span>
                     </h1>
-                    <p class="mb-4 text-2xl font-extrabold text-gray-800">Search for restaurants and place your orders</p> 
+                    <p class="mb-4 text-2xl font-extrabold text-white">Search for restaurants and place your orders</p> 
                 </div>
             </div>
         
@@ -69,10 +52,10 @@
          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                 <div class="">
                     
-                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800">
+                  <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white">
                         Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span>
                     </h1>
-                    <p class="mb-4 text-2xl font-extrabold text-gray-800">Search for restaurants and place your orders</p> 
+                    <p class="mb-4 text-2xl font-extrabold text-white">Search for restaurants and place your orders</p> 
                 </div>
             </div>
         
@@ -105,86 +88,39 @@
         </span>
     </button>
 </div>
-
-
-<!-- 
-<div class="absolute inset-0 md:absolute md:inset-0 flex justify-center items-center z-40">
-   
-    <div class="bg-transparent  ">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800">Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span></h1>
-        <p class="mb-4 text-2xl font-extrabold text-gray-800">Search for restaurants and place your orders</p> 
-        <form class="max-w-md mx-auto">   
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
-                <input v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Yaoundé, Douala..." required />
-                <button @click.prevent="searchRestaurant" type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-orange-500 hover:bg-blorange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">Search</button>
-            </div>
-        </form> 
-    </div>
-</div> -->
-
-
-
-
-
-
-
-
-    
-  
-
-  
-  
-  
-    <!-- <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-5xl">Welcome to  <span class="font-extrabold text-5xl text-orange-500 uppercase" >EATEASILY</span></h1>      
-    <p class="mb-4 text-2xl font-extrabold text-white">Search for restaurants and place yours orders </p>
-      <form class="max-w-md mx-auto">   
-         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        <div class="relative">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-            </svg>
-          </div>
-          <input v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Yaoundé, Douala..." required />
-          <button @click.prevent="searchRestaurant" type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-orange-500 hover:bg-blorange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">Search</button>
-        </div>
-      </form> 
-  </div>
-</div>-->
 <div class="bg-orange-100 min-h-screen"> 
-     <main class="container mx-auto px-4 p-4">
-      <div class="flex justify-between items-center py-10 mx-8">
+     <main class="container mx-auto px-4 p-4  sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center mx-8  flex-wrap   py-6">
     <!-- Title Section -->
-    <h1 class="uppercase text-orange-500 text-2xl font-extrabold">Discover Restaurants</h1>
+    <h1 class="uppercase text-orange-500 text-2xl font-extrabold  text-center sm:text-left">Discover Restaurants</h1>
     
     <!-- Search Form Section -->
-    <form class="flex items-center w-full sm:w-auto">
+    <form class="flex items-center w-full sm:w-auto  mt-4 sm:mt-0">
         <label for="default-search" class="sr-only">Search</label>
         <div class="relative w-full sm:w-64">
             <!-- Search Icon -->
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
             </div>
             <!-- Search Input -->
-            <input v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Yaoundé, Douala..." required />
-            <!-- Search Button -->
-            <button @click.prevent="searchRestaurant" type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-orange-500 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
-                Search
-            </button>
+            <input  @input="searchRestaurant" v-model="searchQuery" type="search" id="default-search" class="  block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search address" required />
         </div>
     </form>
 </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class="bg-white  rounded-xl border border-orange-400 shadow-xl  p-2 h-30 w-60 overflow-hidden transition-transform transform hover:scale-105">
+ 
+
+<div v-if="isLoading" role="status">
+    <svg aria-hidden="true" class="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+    </svg>
+    <span class="sr-only">Loading...</span>
+</div>
+<div v-else class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-4  px-2 sm:px-3">
+        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= " space-x-5 flex flex-col justify-between px-3  h-25 w-50  bg-white  rounded-xl border border-orange-400 shadow-xl  p-2 h-30 w-60 overflow-hidden transition-transform transform hover:scale-105">
           <div class=" flex flex-col items-center">
             <img class="  w-40 h-32 object-cover rounded-lg" :src= "restaurant.logo"  alt="restaurant logo" />
             <h2 class="font-bold text-xl text-orange-600 uppercase mt-1 truncate">{{ restaurant.name }}</h2>
@@ -196,10 +132,11 @@
             <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"> <button  class="mt-2 inline-block bg-orange-400 text-white rounded-xl py-2 px-4 hover:bg-orange-700 transition">See the Menu</button></RouterLink>
           </div>
         </div>
+ 
       </div>
      </main>
      <button data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button"
-      @click="open1"  class="fixed bottom-5 right-5 bg-white border border-orange-400 font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 hover:bg-gray-100" >
+      @click="open1"  class=" fixed bottom-5 right-5 bg-white border border-orange-400 font-semibold p-1 rounded-full shadow-lg transition duration-300 hover:bg-gray-100" >
     <svg class="h-10 w-10 text-orange-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
 </svg>
@@ -304,52 +241,7 @@ const email = ref("");
 const password = ref("");
 const router = useRouter();
 const errorMessage = ref("");
-
-
-
-
-// Déclare les variables réactives
-const currentSlide = ref(0);
-
-// Fonction pour changer de slide
-const setCurrentSlide = (index) => {
-  currentSlide.value = index;
-};
-
-// Fonction pour aller au slide suivant
-const nextSlide = () => {
-  if (currentSlide.value < 2) {
-    currentSlide.value += 1;
-  }
-};
-
-// Fonction pour aller au slide précédent
-const prevSlide = () => {
-  if (currentSlide.value > 0) {
-    currentSlide.value -= 1;
-  }
-};
-
-// Fonction pour gérer les changements de slide via un événement
-const handleSlideChange = (event) => {
-  currentSlide.value = Number(event.target.getAttribute('data-carousel-slide-to'));
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const  Loading=ref(true);
 
 
 
@@ -363,14 +255,19 @@ const open1 = () => {
 
  //Fonction pour récupérer les restaurants
  const fetchRestaurants = async () => {
+  isLoading.value = true;  
   try {
-    const response = await axios.get('https://proj-bdjg.onrender.com/restaurants/resto');
-    restaurants.value = response.data.data;
-    restoStore.restoMemory = response.data.data
-    console.log("resto",restoStore.restoMemory );
-   } catch (error) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+     const response = await axios.get('https://proj-bdjg.onrender.com/restaurants/resto');
+     restaurants.value = response.data.data;
+     restoStore.restoMemory = response.data.data
+     console.log("resto",restoStore.restoMemory );
+    } catch (error) {
     console.error('Erreur lors de la récupération des restaurants:', error);
-  }
+      } finally {
+        isLoading.value = false; 
+      }
+
  };
 // // Appeler la fonction lors du montage du composant
  onMounted(fetchRestaurants)

@@ -10,16 +10,16 @@
           <svg data-accordion-icon :class="{'rotate-180': getShowMenu(index)}" class="h-8 w-8 text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M18 15l-6-6l-6 6h12" transform="rotate(180 12 12)" /></svg>
         </button>
       </h2>
-      <div v-show="getShowMenu(index)" class="max-w-4xl mx-auto my-2" >
+      <div v-show="getShowMenu(index)" class="max-w-4xl  mx-auto my-2" >
         
         <div v-if="menuList.length > 0" >
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6   ">
-            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="bg-white space-x-5 flex flex-col justify-between px-3 mx-auto  rounded-xl p-2 shadow-xl  h-30 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
+            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="bg-white space-x-5 flex flex-col justify-between px-3 mx-auto  rounded-xl p-2 shadow-xl  h-25 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
               <div class=" flex flex-col items-center ">
-                 <img class="mb-1 w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
+                 <img class=" w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
               </div>
-              <div class="p-2">
-                <h2 class="text-xl text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
+              <div class="">
+                <h2 class="text-lg text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
                 <p class="text-gray-700  text-center font-serif text-sm">{{ menuList.description }}</p>
                 <p  class="text-lg text-center font-semibold text-orange-600">★ {{ menuList.price }} FCFA</p>
               </div>
@@ -55,7 +55,7 @@
 <div v-show=" popup"  class="overflow-y-auto fixed inset-0  bg-opacity-50 flex justify-center items-center bg-gray-900 overflow-x-hidden  top-0 right-0 left-0 z-50 w-full md:inset-0 ">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button @click="closePopup" type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+            <button @click="closePopup" type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
@@ -138,7 +138,7 @@
     <div
     id="authentication-modal"
     tabindex="-1"
-    aria-hidden="true"
+    
     v-show="active == false"
     class="inset-0 bg-gray-950 bg-opacity-50 flex shadow overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full  max-h-full"
     >
