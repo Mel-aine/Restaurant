@@ -1,9 +1,9 @@
 <template>
 <div class="">
 
-  <div  class="relative w-full" >
+  <div  class="relative w-full h-auto" >
     <!-- Carousel wrapper -->
-    <div class="relative lg:h-[550px] overflow-hidden md:h-96 sm:h-[350px] ">
+    <div class="relative lg:h-[550px] overflow-hidden md:h-96 h-[200px] ">
       <!-- Items -->
       <div
         class="absolute inset-0 transition-opacity duration-700 ease-in-out"
@@ -71,17 +71,17 @@
     </svg>
     <span class="sr-only">Loading...</span>
 </div>
-<div v-else class="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-6  mx-auto ">
-        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= " bg-white  rounded-xl  shadow-xl  p-2 h-30 w-60 overflow-hidden transition-transform transform hover:scale-105">
+<div v-else class="flex flex-wrap justify-between gap-6 mx-auto">
+        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= "  bg-white text-xs rounded-xl  shadow-xl  p-2 h-30 w-32 sm:w-60 overflow-hidden transition-transform transform hover:scale-105">
           <div class=" flex flex-col items-start">
             <img class="  w-60 h-32 object-cover rounded-lg" :src= "restaurant.logo"  alt="restaurant logo" />
-            <h2 class="font-bold text-xl text-orange-600 uppercase mt-1 truncate">{{ restaurant.name }}</h2>
-            <p class="text-gray-500 font-semibold text-lg "><svg class="h-4 w-4 inline-flex text-orange-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />  <circle cx="12" cy="10" r="3" /></svg> {{ restaurant.address }}</p>
-            <p class="text-gray-500"><svg class="h-4 w-4 inline-flex text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg> {{ restaurant.phone }}</p>
-            <RouterLink to="" class="text-gray-500 hover:underline"><svg class="h-4 w-4 inline-flex text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" /></svg> {{ restaurant.website }}</RouterLink>
+            <h2 class="font-bold text-xs sm:text-xl text-orange-600 uppercase mt-1 truncate">{{ restaurant.name }}</h2>
+            <p class="text-gray-500 font-semibold text-xs sm:text-lg "><svg class="h-4 w-4 inline-flex text-orange-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />  <circle cx="12" cy="10" r="3" /></svg> {{ restaurant.address }}</p>
+            <p class="text-gray-500  sm:text-base"><svg class="h-4 w-4 inline-flex text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg> {{ restaurant.phone }}</p>
+            <RouterLink to="" class="text-gray-500 sm:text-base hover:underline truncate"><svg class="h-4 w-4 inline-flex  text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" /></svg> {{ restaurant.website }}</RouterLink>
             <!-- <p class="text-gray-500">{{ restaurant.email }}</p> -->
             <!-- <p class="text-gray-950"> ★ {{ restaurant.service }}</p> -->
-            <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"> <button  class="mt-2 inline-block bg-orange-400 text-white rounded-xl px-4 p-1 hover:bg-orange-700 transition">See the Menu</button></RouterLink>
+            <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"> <button  class="mt-2 sm:text-base inline-block bg-orange-400 text-white rounded-xl px-4 p-1 hover:bg-orange-700 transition">See the Menu</button></RouterLink>
           </div>
         </div>
  
@@ -283,10 +283,10 @@ const connexion = async () => {
 
 
 const items = [
-  { image: ('/src/assets/baked.jpg') },
-  { image: ('/src/assets/chicken.jpg') },
-  { image: ('/src/assets/cover.jpg') },
-  { image: ('/src/assets/tacos.jpg') }
+  { image: ('/assets/baked.jpg') },
+  { image: ('/assets/chicken.jpg') },
+  { image: ('/assets/cover.JPG') },
+  { image: ('/assets/tacos.jpg') }
 ];
 
 const currentIndex = ref(0);
