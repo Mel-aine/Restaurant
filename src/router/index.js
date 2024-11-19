@@ -6,6 +6,7 @@ import Inscription from '../views/Inscription.vue'
 import horaire from '../views/horaire.vue'
 import restaurateur from '../views/restaurateur.vue'
 import Menu from '../views/Menu.vue'
+import search from '../views/search.vue'
 import {store} from '../store/global'
 
 
@@ -35,6 +36,11 @@ import {store} from '../store/global'
             name: 'connect',
             component: horaire
         },
+        {
+            path: '/search',
+            name: 'search',
+            component: search
+        },
 
         {
             path: '/cmd',
@@ -45,9 +51,6 @@ import {store} from '../store/global'
         {path: '/restaurant/:id_restaurant',
              name: 'Menu', 
              component: Menu,
-             
-
-
             },
     
         

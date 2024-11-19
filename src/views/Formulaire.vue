@@ -3,7 +3,7 @@
 <div class="  ">
 
 
-  <div class="relative overflow-hidden w-full bg-cover bg-center bg-no-repeat bg-[url('assets/image4.jpg')]">
+  <div class="relative overflow-hidden w-full bg-cover bg-center bg-no-repeat bg-[url('assets/sandwich.jpg')]">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto pb-10">
     <div class="hidden md:block"></div> 
 

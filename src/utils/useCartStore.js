@@ -8,6 +8,8 @@ state : () => ({
     dishList : [],
     restoMemory : [],
     dishMemory : [],
+    restoSearch : [],
+
 
 }),
 

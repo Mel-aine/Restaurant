@@ -1,6 +1,6 @@
 <template>
-  <div >
-     <div class="max-w-full  flex flex-col md:flex-row justify-between px-4 py-2   bg-white shadow-2xl rounded-2xl overflow-hidden"> 
+  <div class=" bg-white min-h-screen" >
+     <div class="max-w-full  flex flex-col md:flex-row justify-between px-4 py-2   bg-white shadow-2xl rounded-b-2xl overflow-hidden"> 
      <div class="p-1  ">
       <div v-if="isLoading" role="status">
     <svg aria-hidden="true" class="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,8 +56,8 @@
         <div v-for="categorie in categories" :key="categorie.id_categorie" class="py-10"  id="accordion-flush"  data-accordion="collapse" data-active-classes=" bg-white  dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
          
           
-          <div class="flex justify-end pb-2 overflow-x-auto overflow-y-hidden ">
-            <button class="flex flex-col justify-around h-24 w-28 p-4 rounded-lg shadow-lg drop-shadow-lg mr-5 cursor-pointer select-none transition-transform transform hover:scale-105">
+          <div class="flex justify-end bg-white pb-2 overflow-x-auto overflow-y-hidden ">
+            <button class="flex flex-col bg-white justify-around h-24 w-28 p-4 rounded-lg shadow-lg drop-shadow-lg mr-5 cursor-pointer select-none transition-transform transform hover:scale-105">
               <div class="text-orange-500 font-bold text-sm   ">
                 <h1 class="text-lg font-bold">{{ categorie.name }}</h1>
               </div>
