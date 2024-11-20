@@ -1,19 +1,32 @@
 <template>
   <div>
+    <button 
+    data-collapse-toggle="navbar-user" 
+    type="button" 
+    class="inline-flex items-center  p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
+    aria-controls="navbar-user" 
+    aria-expanded="isMenuOpen.toString()" 
+    @click="toggleMenu">
+    <span class="sr-only">Open main menu</span>
+    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+    </svg>
+</button>
+    
 <div class="md:flex ">
-    <ul class="flex-column  my-auto h-screen p-4   space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
+  <div :class="{'hidden': !menuOpen, 'md:flex': true}">
+    <ul  class="flex-column  my-auto h-screen p-4   space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
         <li v-for="(tab, index) in tabs" :key="index" class="mb-2 text-semibold text-gray-950 text-md">
         <button  @click="selectTab(tab)"  :class="{ 'bg-orange-500 text-white': selectedTab === tab}"   class="inline-flex  border border-orange-500 px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-orange-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white" >
           <svg v-if="tab.icon" class=" w-6 h-6   text-zinc-500 me-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                <path :d="tab.icon" />
            </svg>
-                    {{ tab.name }}
-                    
+                    {{ tab.name }}               
         </button>
-
         </li>         
     </ul>
-    <div class="p-6  bg-gray-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full h-screen scrollbar-custom overflow-auto">
+  </div>
+    <div v-if="!menuOpen" class="p-6  bg-gray-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full h-screen scrollbar-custom overflow-auto">
         <component :is="selectedTab.component"/>
     </div>
 </div>
@@ -66,6 +79,7 @@ export default {
         component: 'tabThree',
       },
       ],
+      menuOpen: false,
     };
   },
   created() {
@@ -87,6 +101,7 @@ export default {
     selectTab(tab) {
       this.selectedTab = tab;
       localStorage.setItem('selectedTab', tab.name); 
+      this.menuOpen = false;
     },
     toggleDropdown() {
         this.isDropdownOpen = !this.isDropdownOpen; // Basculer l'état du dropdown
@@ -94,7 +109,9 @@ export default {
      getShowMenu (index)  {
   this.activeIndex === index ; // Vérifie si l'index est actif ou s'il doit être affiché
 },
-
+toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  },
   },
 };
 </script>

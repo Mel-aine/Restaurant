@@ -14,21 +14,21 @@
       >
         <img :src="item.image" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Carousel Image">
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-          <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white">
+          <h1 class="mb-4 text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight leading-none text-white">
             Welcome to <span class="font-extrabold text-5xl text-orange-500 uppercase">EATEASILY</span>
           </h1>
-          <p class="mb-4 text-2xl font-extrabold text-white">Search for restaurants and place your orders</p>
+          <p class="mb-4 text-2xl mt-2 font-extrabold text-white">Search for restaurants and place your orders</p>
         </div>
       </div>
     </div>
 
     <!-- Slider indicators -->
-    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+    <div class="absolute z-30 flex  -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
       <button
         v-for="(item, index) in items"
         :key="index"
         type="button"
-        class="w-3 h-3 rounded-full"
+        class="w-3 h-3 rounded-full "
         :class="{ 'bg-white': currentIndex === index, 'bg-gray-400': currentIndex !== index }"
         @click="goToSlide(index)"
         aria-label="Slide {{ index + 1 }}"
@@ -72,7 +72,7 @@
     <span class="sr-only">Loading...</span>
 </div>
 <div v-else class="flex flex-wrap justify-between gap-6 mx-auto">
-        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= "  bg-white text-xs rounded-xl  shadow-xl  p-2 h-30 w-32 sm:w-60 overflow-hidden transition-transform transform hover:scale-105">
+        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= "  bg-white text-xs rounded-xl  shadow-xl  p-2 h-30 w-32 sm:w-60  overflow-hidden transition-transform transform hover:scale-105">
           <div class=" flex flex-col items-start">
             <img class="  w-60 h-32 object-cover rounded-lg" :src= "restaurant.logo"  alt="restaurant logo" />
             <h2 class="font-bold text-xs sm:text-xl text-orange-600 uppercase mt-1 truncate">{{ restaurant.name }}</h2>
@@ -98,6 +98,7 @@
       Add your restaurant easily by clicking on the button below.
     <div class="tooltip-arrow" data-popper-arrow></div>
 </div> -->
+
 </div>
 
 
@@ -170,27 +171,6 @@ const open1 = () => {
  onMounted(fetchRestaurants)
 
 
- const searchRestaurant = () => {
-  const query = searchQuery.value;
-  
-  
-  if (!restoStore.restoMemory) {
-    console.error("La mémoire des restaurants est vide.");
-    return;
-  }
-
-  if (!query.trim()) {
-    restaurants.value = restoStore.restoMemory;
-  } else {
-    restaurants.value = restoStore.restoMemory.filter(Item =>
-      Item.address && 
-      (Item.name.toLowerCase().includes(query.toLowerCase()) || 
-       Item.address.toLowerCase().includes(query.toLowerCase()))
-    );
-  }
-};
-
-
 
 const validateFields = () => {
   // Vérification de l'email
@@ -226,67 +206,12 @@ const isLoading = ref(false)
 
 
 
-const connexion = async () => {
-  const userStore = useUserStore();
-  if (!validateFields()) {
-    return;
-  }
-  
-  isLoading.value = true;  
-  try {
-    
-
-    // Connexion avec Firebase
-    const userCredential = await  userStore.login(email.value, password.value);;
-    const user = userCredential.user;
-
-    // Si vous avez besoin d'appeler votre API après la connexion Firebase
-    const response = await axios.post("https://proj-bdjg.onrender.com/users/login", {
-      Email: email.value,
-      Password: password.value,
-    });
-
-    // Mettez à jour le store avec les données de l'utilisateur
-    store.setUser(response.data.data);
-    
-    // Ouvrir la modal ou effectuer une action
-    open1();
-    
-    // Redirection vers la page de commande
-    router.push("/cmd"); 
-
-    // Stocker l'email de l'utilisateur dans le localStorage
-    localStorage.setItem("userEmail1",userStore.userInfo.email ); 
-    email.value = '';
-    password.value = '';
-    errorMessage.value = ""; 
-
-  } catch (error) {
-    console.error("Erreur de connexion :", error);
-  if (error.code === 'auth/invalid-email') {
-    errorMessage.value = "L'adresse email saisie est invalide. Veuillez vérifier votre email.";
-  } else if (error.code === 'auth/wrong-password') {
-    errorMessage.value = "Le mot de passe saisi est incorrect.";
-  } else if (error.code === 'auth/user-not-found') {
-    errorMessage.value = "Aucun utilisateur trouvé avec cet email.";
-  } else if (error.code === 'auth/invalid-credential') {
-    errorMessage.value = "The credentials provided are invalid. Please try again.";
-  }
-  else {
-    errorMessage.value = error.message || "Erreur de connexion";
-  }
-  } finally {
-    isLoading.value = false;  
-  }
-};
-
-
 
 const items = [
+  { image: ('/assets/repas.jpg') },
   { image: ('/assets/baked.jpg') },
-  { image: ('/assets/chicken.jpg') },
   { image: ('/assets/cover.JPG') },
-  { image: ('/assets/tacos.jpg') }
+  { image: ('/assets/chicken.jpg') }
 ];
 
 const currentIndex = ref(0);

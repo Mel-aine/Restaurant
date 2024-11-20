@@ -1,11 +1,11 @@
 <template>
 
 
-<section class="relative overflow-hidden h-50 w-full bg-cover bg-center bg-no-repeat bg-[url('assets/image6.jpg')]">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto p-4">
-    <div class="w-full max-w-full p-4 bg-white border border-gray-200 shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+<section class="relative overflow-hidden h-50 w-full bg-cover bg-center bg-no-repeat bg-[url('assets/burger.jpg')] min-h-screen ">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto p-4 ">
+    <div class=" w-full max-w-full p-4 bg-white border border-gray-200 shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
       <h5 class="text-xl flex flex-col items-center uppercase font-medium text-gray-900 dark:text-white">Sign up to our platform</h5>
-      <form @submit.prevent="register" class="space-y-4 py-8 my-8 z-10 translate-y-6">
+      <form @submit.prevent="register" class="space-y-4 py-8 my-8 z-10 translate-y-6 ">
         <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
         <p v-if="successMessage" class="text-green-500">{{ successMessage }}</p>
 

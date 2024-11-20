@@ -1,22 +1,24 @@
 <template>
   <div class=" bg-white min-h-screen" >
-     <div class="max-w-full  flex flex-col md:flex-row justify-between px-4 py-2   bg-white shadow-2xl rounded-b-2xl overflow-hidden"> 
-     <div class="p-1  ">
-      <div v-if="isLoading" role="status">
+    <div v-if="isLoading" role="status" class="flex flex-col items-center py-12">
     <svg aria-hidden="true" class="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
         <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
     </svg>
     <span class="sr-only">Loading...</span>
 </div>
-      <ul v-else class="space-x-4  flex flex-col md:flex-row items-start mx-auto px-2">
+<div v-else class="">
+     <div  class="max-w-full  flex flex-col md:flex-row justify-between px-4 pb-2 pt-10  flex-wrap bg-white overflow-hidden"> 
+     <div class="p-1  ">
+     
+      <ul  class="space-x-4 space-y-2 lg:space-y-0  flex flex-col flex-wrap md:flex-row items-start mx-auto px-2">
         <li
           v-for="horaire in horaires"
           :key="horaire.id_horaire"
-          class="  flex  justify-between items-center space-x-5 p-2 bg-gray-100 rounded-2xl transition duration-300 ease-in-out hover:bg-orange-200"
+          class="  flex  justify-between text-xs items-center space-x-5 p-2  bg-gray-100 rounded-2xl transition duration-300 ease-in-out hover:bg-orange-200"
         >
-          <span class="font-semibold  text-gray-700">{{ horaire.day }} </span>
-          <span class="text-orange-600 font-semibold ">{{ horaire.opening_hour }} --- {{ horaire.closing_hour }} </span>
+          <span class="font-semibold sm:text-base   text-gray-700">{{ horaire.day }} </span>
+          <span class="text-orange-600 sm:text-base  font-semibold ">{{ horaire.opening_hour }} --- {{ horaire.closing_hour }} </span>
         </li>
       </ul>
     </div>
@@ -39,62 +41,97 @@
     </div>
     </div> 
     </div> 
+    <hr class="w-full h-1 my-6 bg-gray-200 border-0 rounded dark:bg-gray-700">
+<div class="flex flex-col sm:flex-row justify-between items-center px-8">
+    <h1 class="uppercase text-gray-500 text-2xl font-extrabold pt-6  sm:text-left">discover our menus</h1>
+    
 
-    <form class="max-w-md mx-auto pt-10">   
-      <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-      <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-          </svg>
-        </div>
-        <input @input="searchMenu" v-model="searchQuery" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-orange-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search Dish..." required />
+    <div class="max-w-md mx-auto py-5  space-y-5 px-3 flex justify-end">
+  <button 
+    @click="Menu" 
+    type="button" 
+    aria-expanded="false" 
+    class="text-orange-500 dark:text-orange-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-xl text-sm p-2.5 me-1"
+  >
+    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+    </svg>
+    <span class="sr-only">Search</span>
+  </button>
+
+  <form v-show="MenuOpen == false" class="w-full max-w-xs">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
       </div>
-    </form>
-   
-        
-        <div v-for="categorie in categories" :key="categorie.id_categorie" class="py-10"  id="accordion-flush"  data-accordion="collapse" data-active-classes=" bg-white  dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-         
+      <input 
+        @input="searchMenu" 
+        v-model="searchQuery" 
+        type="search" 
+        id="default-search" 
+        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-orange-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" 
+        placeholder="Search Dish..." 
+        required 
+      />
+    </div>
+  </form>
+</div>
+</div>
+</div>
+<!-- categorie -->
+
           
-          <div class="flex justify-end bg-white pb-2 overflow-x-auto overflow-y-hidden ">
-            <button class="flex flex-col bg-white justify-around h-24 w-28 p-4 rounded-lg shadow-lg drop-shadow-lg mr-5 cursor-pointer select-none transition-transform transform hover:scale-105">
-              <div class="text-orange-500 font-bold text-sm   ">
-                <h1 class="text-lg font-bold">{{ categorie.name }}</h1>
-              </div>
-              
-              
-            </button> 
-            
-            <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
+<div class="flex justify-start overflow-x-auto gap-8 px-8 flex-wrap">
+    <div v-for="categorie in categories" :key="categorie.id_categorie" class="flex-shrink-0 w-28 mx-2 mb-4">
+      <button  type="button"
+        @click="toggleMenu(categorie.id_categorie)" 
+        class=" w-28 mr-5 flex flex-col bg-white justify-around h-24 p-4 rounded-lg shadow-lg drop-shadow-lg cursor-pointer hover:bg-gray-100 select-none transition-transform transform hover:scale-105">
+        <div class="text-orange-500 font-bold text-sm">
+          <h1 class="text-lg font-bold">{{ categorie.name }}</h1>
+        </div>  
+      </button>
+    </div>
+  </div>
+ 
+
+  <!-- Conteneur pour les menus -->
+  
+  <div v-if="activeCategory" class="mt-4 p-4">
+    <h2 class="text-2xl font-bold text-center text-gray-500 mb-4">Menus for {{ getCategoryName(activeCategory) }} Category</h2>
+
+
+    <div v-if="filteredMenus(activeCategory).length > 0">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4">
+        <div v-for="menu in filteredMenus(activeCategory)" :key="menu.id_menu" class="text-xs bg-white space-x-5 flex flex-col justify-between px-3 rounded-xl p-2 shadow-xl h-25 w-50 transition-transform transform hover:scale-105 overflow-hidden">
+          <div class="flex flex-col items-center">
+            <img class="w-60 h-32 rounded-lg" :src="menu.image" alt="Image du menu">
           </div>
-          <div class=" max-w-4xl mx-auto ">
-          
-        <div v-if="menuList.length > 0" >
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 mx-auto  ">
-            <div v-for="menuList in filteredMenus(categorie.id_categorie)" :key="menuList.id_menu" class="   bg-white space-x-5 flex flex-col justify-between px-3   rounded-xl p-2 shadow-xl  h-25 w-50  transition-transform transform hover:scale-105  overflow-hidden" >
-              <div class=" flex flex-col items-center ">
-                 <img class=" w-40 h-30 rounded-lg " :src=menuList.image alt="Image du menu">
-              </div>
-              <div class="">
-                <h2 class="text-lg text-center text-orange-500 font-bold uppercase"> {{ menuList.name }}</h2>
-                <p class="text-gray-700  text-center font-serif text-sm">{{ menuList.description }}</p>
-                <p  class="text-lg text-center font-semibold text-orange-600">★ {{ menuList.price }} FCFA</p>
-              </div>
-              <div>
-              <div  class="flex flex-col items-center">
-                    <button @click.prevent="   cart.add(menuList)"   class="bg-orange-600 text-black text-sm font-bold py-1 px-4 rounded-xl"  > Add to Dish </button>  
-                </div>
-                <!-- <div v-else class="flex flex-col items-center">
-                    <button @click.prevent="message" class="bg-orange-600 text-black w-full text-sm font-bold py-1 px-4 rounded-xl"  > Add to Dish
-                  </button>
-                </div> -->
-            </div>
+          <div>
+            <h2 class="sm:text-lg text-center text-orange-500 font-bold uppercase">{{ menu.name }}</h2>
+            <p class="text-gray-700 text-center font-serif sm:text-sm">{{ menu.description }}</p>
+            <p class="sm:text-lg text-center font-semibold text-orange-600">★ {{ menu.price }} FCFA</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <button @click.prevent="cart.add(menuList)" class="bg-orange-600 text-black text-sm font-bold py-1 px-4 rounded-xl truncate">Add to Dish</button>
           </div>
         </div>
       </div>
-        <p v-else>Aucun menu disponible pour cette catégorie.</p>
-        </div>
-      </div>
+    </div>
+    <p v-else>Aucun menu disponible pour cette catégorie.</p>
+  </div>
+
+
+
+
+
+
+
+
+
+
       
       <!-- Main modal -->
       <div  v-show="showModal" class="flex bg-gray-950 bg-opacity-50 inset-0 overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full h-full">
@@ -144,39 +181,39 @@
                     </span> 
                   </div>
                 </div>   
-                <button  @click.prevent="cart.remove(item.id_menu)" class="text-red-500 hover:text-red-600 hover:underline  transition-colors duration-300 font-medium">   Supprimer  </button>
+                <button  @click.prevent="cart.remove(item.id_menu)" class="text-red-500 hover:text-red-600 hover:underline  transition-colors duration-300 font-medium">Remove</button>
               </div>
               <div class="max-w-md mx-auto mt-4 p-4 bg-gray-100 rounded-lg shadow">
-                <p class="text-lg font-semibold text-gray-900">Sous-total : <span class="text-green-600">{{ cart.subTotal }} fcfa</span></p>
+                <p class="text-lg font-semibold text-gray-900">SubTotal : <span class="text-green-600">{{ cart.subTotal }} fcfa</span></p>
               </div>
               <div class="max-w-md mx-auto mt-4">
-                <p class="text-lg font-semibold text-gray-900">Méthode de paiement :</p>
+                <p class="text-lg font-semibold text-gray-900">Payment method:</p>
                 <div class="flex flex-col  space-y-4 mt-2">
                   
                   <div class="flex items-center space-x-2">
                     <input type="radio" id="bank-transfer" name="payment-method" value="bank-transfer" class="h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
-                    <label for="bank-transfer" class="text-gray-700">Paiement Mobile</label>
+                    <label for="bank-transfer" class="text-gray-700">Mobile Payment</label>
                   </div>
                   <div class="flex items-center space-x-2">
                     <input type="radio" id="cash" name="payment-method" value="cash" class="h-4 w-4 text-orange-600 border-gray-300 focus:ring-orange-500">
-                    <label for="cash" class="text-gray-700">Espèces à la livraison</label>
+                    <label for="cash" class="text-gray-700">Cash on delivery</label>
                   </div>
                 </div>
               </div>
               
               <div class="max-w-md mx-auto mt-4 p-4 bg-gray-100 rounded-lg shadow">
-                <p class="text-lg font-semibold text-gray-900">Informations sur la livraison :</p>
+                <p class="text-lg font-semibold text-gray-900">Delivery information :</p>
                 <div class="mt-2">
-                  <label for="address" class="block text-gray-700">Adresse de livraison :</label>
-                  <input type="text" id="address" name="address" placeholder="Entrez votre adresse" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500">
+                  <label for="address" class="block text-gray-700">Delivery address :</label>
+                  <input type="text" id="address" name="address" placeholder="Enter your address" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500">
                 </div>
                 <div class="mt-4">
-                  <label for="numero" class="block text-gray-700">Numero de Telephone :</label>
-                  <input type="text" id="numero" name="numero" placeholder="Entrez votre numero" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500">
+                  <label for="numero" class="block text-gray-700">Telephone number :</label>
+                  <input type="text" id="numero" name="numero" placeholder="Enter your phone number" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500">
                 </div>
                 <div class="mt-4">
-                  <label for="notes" class="block text-gray-700">Notes spéciales :</label>
-                  <textarea id="notes" name="notes" rows="3" placeholder="Ajoutez des instructions spéciales ici..." class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"></textarea>
+                  <label for="notes" class="block text-gray-700"> Special notes :</label>
+                  <textarea id="notes" name="notes" rows="3" placeholder="Add special instructions here..." class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500"></textarea>
                 </div>
               </div>
               
@@ -184,7 +221,7 @@
                 <button
                 @click.prevent="passerCommande"
                 class="w-full inline-flex  justify-center bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 rounded-md shadow transition duration-300">
-                Passer votre commande
+                Place your order
               </button>
             </div>
           </div>
@@ -270,7 +307,11 @@ const searchQuery = ref('');
 const userStore = useUserStore();
 const menuStore = useCartStore()
 const showModal = ref(false);
+const activeCategory = ref(null);
 
+const toggleMenu = (id) =>{
+  activeCategory.value = activeCategory.value === id ? null : id;
+}
 
 
 
@@ -287,6 +328,11 @@ const filteredMenus = (id_categorie) => {
   return menuList.value.filter(menuList => menuList.id_categorie === id_categorie);
 };
 
+
+const getCategoryName = (id) => {
+  const category = categories.value.find(cat => cat.id_categorie === id);
+  return category ? category.name : '';
+}
 
 // // Fonction pour récupérer les restaurants
 const categories = ref([])
@@ -311,6 +357,7 @@ const categories = ref([])
 
 
  const fetchMenu = async (categorieId) => {
+  
    try {
     console.log(categorieId);
      const response = await axios.get(`https://proj-bdjg.onrender.com/menus/${categorieId}`);
@@ -363,6 +410,11 @@ const close = () => {
 // });
 
 
+const MenuOpen = ref(true)
+const Menu = () => {
+    MenuOpen.value = !MenuOpen.value;
+    
+}
 
 
 if (isUserLoggedIn) {

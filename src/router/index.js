@@ -7,6 +7,7 @@ import horaire from '../views/horaire.vue'
 import restaurateur from '../views/restaurateur.vue'
 import Menu from '../views/Menu.vue'
 import search from '../views/search.vue'
+import men from '../views/men.vue'
 import {store} from '../store/global'
 
 
@@ -23,6 +24,11 @@ import {store} from '../store/global'
             path: '/form',
             name: 'form',
             component: Formulaire
+        },
+        {
+            path: '/men',
+            name: 'men',
+            component: men
         },
 
         {

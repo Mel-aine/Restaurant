@@ -23,7 +23,7 @@
     </div>
 
     <!-- Liste des restaurants -->
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div v-else class="flex flex-wrap justify-center gap-6 mx-auto">
       <a
         v-for="restaurant in restoStore.restoSearch"
         :key="restaurant.id"
