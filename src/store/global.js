@@ -71,6 +71,7 @@ export const store = reactive({
   },
   getUser() {
     return this.global?.user;
+    
   },
   getUserId() {
     return this.global?.user?.id_utilisateur;

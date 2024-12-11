@@ -49,7 +49,7 @@ import {store} from '../store/global'
         },
 
         {
-            path: '/cmd',
+            path: '/cmd/:id_restaurant',
             name: 'cmd',
             component: restaurateur
         },

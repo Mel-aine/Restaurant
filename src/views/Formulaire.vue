@@ -3,11 +3,11 @@
 <div class="  ">
 
 
-  <div class="relative overflow-hidden w-full bg-cover bg-center bg-no-repeat bg-[url('assets/sandwich.jpg')]">
+  <div class="relative overflow-hidden w-full bg-cover bg-center bg-no-repeat bg-[url('assets/sandwich.jpg')] min-h-screen">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto pb-10">
     <div class="hidden md:block"></div> 
 
-    <div class="w-full max-w-lg px-4 md:px-8">
+    <div class="w-full max-w-xl px-4 md:px-8">
       <form @submit.prevent="Register()" class="bg-white space-y-4 my-4 py-10 mx-auto z-10 translate-y-6 px-8">
         <h1 class="text-xl font-semibold flex text-orange-500 flex-col items-center underline">
           Do you already have an account?
@@ -26,47 +26,40 @@
         </div>
 
         <div class="mb-5">
-          <label for="address" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Restaurant Address</label>
-          <input type="text" id="address" v-model="address" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Entrez restaurant address" required />
-        </div>
-
-        <div class="mb-5">
           <label for="nom" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Restaurant's Name</label>
           <input type="text" id="nom" v-model="name" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Exemple: liv's-PIZZA" required />
         </div>
-
-        <div class="mb-5">
-          <label for="site" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Website</label>
-          <input type="text" id="site" v-model="website" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="www.nmmml.com" />
+       <div class="  grid md:grid-cols-2 md:gap-6 ">
+        <div class="">
+          <label for="address" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Restaurant Address</label>
+          <input type="text" id="address" v-model="address" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Entrez restaurant address" required />
         </div>
-
-        <div class="grid md:grid-cols-2 md:gap-6">
-          <div class="">
-            <label for="nom1" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">First Name</label>
-            <input type="text" id="nom1" v-model="firstname" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Entrez votre nom" required />
-          </div>
-
-          <div class="">
-            <label for="prenom" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Last Name</label>
-            <input type="text" id="prenom" v-model="lastname" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Entrez votre prénom" required />
-          </div>
+        
+        <div class="">
+          <label for="numero" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Phone Number</label>
+            <input type="tel" id="numero" v-model="phone" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="697778855" required /> 
         </div>
-
-        <div class="flex-col py-1 grid md:grid-cols-2 md:gap-6">
+       </div>
+      
+        <div class=" grid md:grid-cols-2 md:gap-6">
           <div class="">
             <label for="email" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Email</label>
             <input type="email" id="email" v-model="email" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="name@gmail.com" autocomplete="username" required />
           </div>
 
           <div class="">
-            <label for="numero" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Phone Number</label>
-            <input type="tel" id="numero" v-model="phone" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="697778855" required />
+            <label for="site" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Website</label>
+          <input type="text" id="site" v-model="website" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="www.nmmml.com" />
           </div>
         </div>
 
-        <label for="pass" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Password</label>
-        <input type="password" id="pass" v-model="password" class="bg-white border border-orange-300 text-orange-900 text-md rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-white dark:border-orange-600 dark:placeholder-gray-400 dark:text-orange-500 dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Entrez votre mot de passe" autocomplete="current-password" required />
 
+        
+      <label for="message" class="block mb-2 text-md font-medium text-gray-900 dark:text-white">Description</label>
+      <textarea v-model="description" id="message" rows="4" class="block p-2.5 w-full text-sm text-orange-900 bg-gray-50 rounded-lg border border-orange-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500" placeholder="Write your thoughts here..."></textarea>
+
+
+       
         <!-- <div class="my-5">
           <label class="block text-gray-900 text-lg font-semibold mb-2 dark:text-white">Type of Service</label>
           <select v-model="service" class="appearance-none border rounded-lg w-full border-orange-300 py-2 px-3 text-gray-700 leading-tight focus:ring-orange-500 focus:outline-none focus:shadow-outline" required>
@@ -107,23 +100,23 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from 'firebase/app';
 import { ref } from 'vue';
 import axios from 'axios';
+import { useUserStore } from '/src/utils/useUserStore.js'
 import { store } from "../store/global";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const email = ref('');
-const password = ref('');
-const firstname = ref('');
-const lastname = ref('');
+const description = ref('');
+const userStore = useUserStore();
 const phone = ref('');
 const address = ref('');
-const  errorMessage = ref(null);
+let  errorMessage = ref('');
 const service = ref('');
 const website = ref('');
 const name = ref('');
 const logo = ref('');
 const file = ref(null);
-const  successMessage = ref(null);
+let  successMessage = ref('');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -177,17 +170,7 @@ const validateFields = () => {
     return false;
   }
   
-  // Vérification du mot de passe
-  if (!password.value) {
-    errorMessage.value = "Password is required.";
-    return false;
-  }
   
-  if (password.value.length < 6) {
-    errorMessage.value = "The password must contain at least 6 characters.";
-    return false;
-  }
-
   const phonePattern = /^6\d{8}$/; // Validation pour le format commençant par 6 et ayant 9 chiffres
       if (!phone.value.match(phonePattern)) {
         errorMessage.value = "The number must start with 6 and contain 9 digits in total.";
@@ -211,43 +194,34 @@ const isLoading = ref(false);
    isLoading.value = true; // Active le spinner
 
     try {
-    
-    const auth = getAuth();
-    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-    
-    
+
 // //     // Étape 1 : Upload du fichier
      const logo = await uploadFile(); 
     
 //      // Étape 2 : Soumission des données du formulaire
       const response = await axios.post('https://proj-bdjg.onrender.com/restaurants/form', {
         Email: email.value,
-        Password: password.value,
-        FirstName: firstname.value,
-        LastName: lastname.value,
         Phone: phone.value,
         Address: address.value,
-       Service: "Delivery",
+        Service: "Delivery",
         Website: website.value,
         Name: name.value,
-        Logo: logo
+        Description : description.value,
+        Logo: logo,
+        UserEmail : userStore.userInfo.email
       
       });
     
       console.log(response.data);
-      store.setRestaurantId(response.data.data);
+      store.setRestaurant(response.data);
+      router.push('/');
      // alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
      successMessage.value = response.data.message
-     email.value="", password.value="",
-      firstname.value="", lastname.value="", phone.value="", address.value="", name.value="", website.value=""
-     
-     
+     email.value="",  phone.value="", address.value="", name.value="", website.value="", description.value=""
     
     } catch (error) {
       console.log(error);
-      if (error.code === 'auth/email-already-in-use') {
-            errorMessage.value = 'This email address is already in use. Please choose another one';
-        } else if (error.response) {
+      if  (error.response) {
             errorMessage = error.response.data.message || 'Erreur lors de l\'inscription';
         } else {
             errorMessage = error.message || "Registration error";

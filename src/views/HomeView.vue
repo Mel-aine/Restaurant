@@ -64,16 +64,12 @@
 
  
 
-<div v-if="isLoading" role="status" class="flex justify-center items-center py-12">
-    <svg aria-hidden="true" class="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-orange-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-    </svg>
-    <span class="sr-only">Loading...</span>
-</div>
-<div v-else class="flex flex-wrap justify-between gap-6 mx-auto">
-        <div   v-for="restaurant in restaurants" :key="restaurant.id"  data-aos="zoom-in-down"  class= "  bg-white text-xs rounded-xl  shadow-xl  p-2 h-30 w-32 sm:w-60  overflow-hidden transition-transform transform hover:scale-105">
+<SpinnerOverPage v-if="isLoading"/>
+<div  class="flex flex-wrap justify-center gap-6 ">
+        <div   v-for="restaurant in restoStore.resto" :key="restaurant.id"  data-aos="zoom-in-down"  class= "  bg-white text-xs rounded-xl  shadow-xl  p-2 h-30 w-32 sm:w-60  overflow-hidden transition-transform transform hover:scale-105">
           <div class=" flex flex-col items-start">
+            
+      <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}" class=" cursor-pointer select-none transition-transform transform hover:scale-105 ">
             <img class="  w-60 h-32 object-cover rounded-lg" :src= "restaurant.logo"  alt="restaurant logo" />
             <h2 class="font-bold text-xs sm:text-xl text-orange-600 uppercase mt-1 truncate">{{ restaurant.name }}</h2>
             <p class="text-gray-500 font-semibold text-xs sm:text-lg "><svg class="h-4 w-4 inline-flex text-orange-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />  <circle cx="12" cy="10" r="3" /></svg> {{ restaurant.address }}</p>
@@ -81,23 +77,13 @@
             <RouterLink to="" class="text-gray-500 sm:text-base hover:underline truncate"><svg class="h-4 w-4 inline-flex  text-orange-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" /></svg> {{ restaurant.website }}</RouterLink>
             <!-- <p class="text-gray-500">{{ restaurant.email }}</p> -->
             <!-- <p class="text-gray-950"> ★ {{ restaurant.service }}</p> -->
-            <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"> <button  class="mt-2 sm:text-base inline-block bg-orange-400 text-white rounded-xl px-4 p-1 hover:bg-orange-700 transition">See the Menu</button></RouterLink>
+            <!-- <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"> <button  class="mt-2 sm:text-base inline-block bg-orange-400 text-white rounded-xl px-4 p-1 hover:bg-orange-700 transition">See the Menu</button></RouterLink> -->
+          </RouterLink>
           </div>
         </div>
  
       </div>
      </main>
-     <!-- <button data-tooltip-target="tooltip-bottom" data-tooltip-placement="bottom" type="button"
-      @click="open1"  class=" fixed bottom-5 right-5 bg-white border border-orange-400 font-semibold p-1 rounded-full shadow-lg transition duration-300 hover:bg-gray-100" >
-    <svg class="h-10 w-10 text-orange-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-</svg>
-
-    </button>
-    <div id="tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-orange-400 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-      Add your restaurant easily by clicking on the button below.
-    <div class="tooltip-arrow" data-popper-arrow></div>
-</div> -->
 
 </div>
 
@@ -130,6 +116,8 @@ import { store } from '../store/global';
 import { RouterLink } from 'vue-router';
 import { useUserStore } from '../utils/useUserStore.js';
 import { useCartStore } from '/src/utils/useCartStore.js';
+import { defineAsyncComponent } from 'vue';
+const SpinnerOverPage = defineAsyncComponent(() => import('../components/Utilities/SpinnerOverPage.vue'));
 const active = ref(true)
 const Restaurant = store.getRestaurant()
 const searchQuery = ref('');
@@ -158,6 +146,8 @@ const open1 = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
      const response = await axios.get('https://proj-bdjg.onrender.com/restaurants/resto');
      restaurants.value = response.data.data;
+     console.log("restaurants", restaurants.value );
+     restoStore.resto = response.data.data
      restoStore.restoMemory = response.data.data
      console.log("resto",restoStore.restoMemory );
     } catch (error) {
@@ -172,34 +162,6 @@ const open1 = () => {
 
 
 
-const validateFields = () => {
-  // Vérification de l'email
-  if (!email.value) {
-    errorMessage.value = "Email is required.";
-    return false;
-  }
-  
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expression régulière pour valider l'email
-  if (!emailPattern.test(email.value)) { // Utilisez email1 ici
-    errorMessage.value = "Please enter a valid email address.";
-    return false;
-  }
-  
-  // Vérification du mot de passe
-  if (!password.value) {
-    errorMessage.value = "Password is required.";
-    return false;
-  }
-  
-  if (password.value.length < 6) {
-    errorMessage.value = "The password must contain at least 6 characters.";
-    return false;
-  }
-  
-  // Réinitialiser le message d'erreur si tout est valide
-  errorMessage.value = ""; 
-  return true;
-};
 
 
 const isLoading = ref(false)
@@ -209,9 +171,9 @@ const isLoading = ref(false)
 
 const items = [
   { image: ('/assets/repas.jpg') },
-  { image: ('/assets/baked.jpg') },
+  { image: ('/assets/salade.jpeg') },
   { image: ('/assets/cover.JPG') },
-  { image: ('/assets/chicken.jpg') }
+  { image: ('/assets/pizza.jpg') }
 ];
 
 const currentIndex = ref(0);

@@ -6,29 +6,64 @@
       <hr>
 
       <div v-for="horaire in horaires" :key="horaire.id" class="hover:bg-gray-100 transition duration-300">
-    <div class="grid grid-cols-2 gap-6 px-8 py-4 border-b border-gray-300">
-        <div class="text-gray-800 font-semibold">
-            <span class="text-sm">{{ horaire.day }}</span>
+      
+    <div class="grid grid-cols-2 gap-5 px-8 py-2 border-b border-gray-300">
+        <div class="text-gray-800 font-semibold flex flex-wrap">
+            <span class="text-sm ">{{ horaire.day }} </span>    
         </div>
         <div class="flex items-center justify-between">
             <div class="flex flex-col items-start">
                 <span class="text-sm text-gray-600">ouverture</span>
                 <span class="text-sm text-gray-800 font-semibold">{{ horaire.opening_hour }}</span>
             </div>
-            <span class="mx-2 text-gray-500">----</span>
+            
+            <span class="mx-2 text-gray-500">---- </span>
+            
             <div class="flex flex-col items-end">
                 <span class="text-sm text-gray-600">Fermeture</span>
                 <span class="text-sm text-gray-800 font-semibold">{{ horaire.closing_hour }}</span>
+                
             </div>
+            
+            <!-- <div class="flex flex-col items-end">  <svg class="h-8 w-8 text-gray-500 translate-x-8"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg></div>  -->
         </div>
-    </div>
+    
+        <button  @click.prevent="openPopup(horaire.id_horaire)"  class="py-1   px-2  text-sm font-medium text-gray-900 focus:outline-none bg-red-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Delete</button>
+    
+</div>
 </div>
 <div class="grid grid-cols-2 gab-6">
 <button @click="open" type="button" class="py-2.5  px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add schedule</button>
 
-<button  class="py-2.5  px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-red-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Delete Schedule</button>
+
 </div>
 </div>
+
+<div v-show=" popup"  class="overflow-y-auto fixed inset-0  bg-opacity-50 flex justify-center items-center bg-gray-900 overflow-x-hidden  top-0 right-0 left-0 z-50 w-full md:inset-0 ">
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button @click="closePopup" type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" >
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this Schedule?</h3>
+                <button @click="deleteHoraire(selectedhoraireId)" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Yes, I'm sure
+                </button>
+                <button @click="closePopup" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div v-show="active==true" id="app" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
         <h1 class="text-2xl font-bold text-center text-gray-700">Restaurant Opening Hours</h1>
         <form @submit.prevent="soumettre" >
@@ -111,12 +146,28 @@
      import {  ref,onMounted } from 'vue';
      import axios from "axios";
      import { store } from "../store/global";
+     import { useRoute } from 'vue-router';
+const route = useRoute();
+
             
                 const jours = ref([]);
                 const heure_ouverture = ref('');
                 const heure_fermeture = ref('');
                 const active = ref(false);
                 const isLoading = ref(false);
+                const popup = ref(false);
+  const selectedhoraireId = ref(null);
+  const openPopup = (horaireId) => {
+    selectedhoraireId.value = horaireId;
+    alert(horaireId)
+      popup.value = true;
+    };
+
+    const closePopup = () => {
+      popup.value = false;
+      selectedhoraireId.value = null;
+    };
+
 
                 const open = () => {
                     active.value = !active.value;
@@ -168,7 +219,7 @@ const horaires = ref([]);
 
 const fetchHoraire = async () => {
   try {
-    const restaurantId = store.getRestaurantId();
+    const restaurantId = Number(route.params.id_restaurant); 
     const response = await axios.get(`https://proj-bdjg.onrender.com/horaires/${restaurantId}`);
     horaires.value = response.data.data;
     console.log(restaurantId);
@@ -178,5 +229,19 @@ const fetchHoraire = async () => {
   }
 };       
 onMounted(fetchHoraire);        
+
+
+const deleteHoraire = async (horaireId) => {
+      try {
+       console.log("horaire :: deleteHoraire :: ", horaireId);
+       
+        await axios.delete(`http://localhost:3001/horaires/${horaireId}`); 
+        closePopup();
+        fetchHoraire ();
+      } catch (error) {
+        console.error('error when deleting schedule:', error);
+      }
+    };
+  
     </script>
 

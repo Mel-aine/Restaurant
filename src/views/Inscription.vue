@@ -1,13 +1,27 @@
 <template>
 
 
-<section class="relative overflow-hidden h-50 w-full bg-cover bg-center bg-no-repeat bg-[url('assets/burger.jpg')] min-h-screen ">
+<section class="relative overflow-hidden h-50 w-full bg-cover bg-center bg-no-repeat bg-[url('assets/pate.jpg')] min-h-screen ">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto p-4 ">
     <div class=" w-full max-w-full p-4 bg-white border border-gray-200 shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-      <h5 class="text-xl flex flex-col items-center uppercase font-medium text-gray-900 dark:text-white">Sign up to our platform</h5>
+      <h5 class="text-xl flex flex-col items-center uppercase font-medium text-orange-500 dark:text-white">Sign up to our platform</h5>
       <form @submit.prevent="register" class="space-y-4 py-8 my-8 z-10 translate-y-6 ">
         <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
         <p v-if="successMessage" class="text-green-500">{{ successMessage }}</p>
+
+               
+        <label  class=" text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10  peer-focus:text-orange-600 peer-focus:dark:text-orange-500 ">Profile</label>
+ <div class="grid md:grid-cols-2 md:gap-6">
+<div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+    <input v-model="role"  id="bordered-radio-1" type="radio" value="editor" name="bordered-radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    <label for="bordered-radio-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Restaurateur</label>
+</div>
+<div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+    <input v-model="role"  checked id="bordered-radio-2" type="radio" value="viewer" name="bordered-radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    <label for="bordered-radio-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">viewer</label>
+</div>
+</div>
+
 
         <div class="relative z-0 w-full mb-5 group">
           <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-md text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " required v-model="email" autocomplete="username"/>
@@ -102,15 +116,15 @@ const app = initializeApp(firebaseConfig);
 
 
 const isLoading = ref(false);
- const router = useRouter(); // Initialiser le routeur
+ 
 
 
 
-/*const router = useRouter()
+const router = useRouter()
 const redirectReload = async () => {
     await router.push({ path : '/' })
     router.go(0);
-}*/
+}
 
  
 const email = ref('');
@@ -119,6 +133,7 @@ const email = ref('');
     const lastname = ref('');
     const phone = ref('');
     const address = ref('');
+    const role = ref('')
     const errorMessage = ref(null);
     const successMessage = ref(null);
 
@@ -174,24 +189,25 @@ createUserWithEmailAndPassword(auth, email.value, password.value)
     const user = userCredential.user;
     // ...
   }) 
-        
         const response = await axios.post('https://proj-bdjg.onrender.com/users/form', {
+       // const response = await axios.post('http://localhost:3001/users/form', {
             Email: email.value,
             Password: password.value,
             FirstName : firstname.value,
             LastName : lastname.value,
             Phone : phone.value,
             Address : address.value,
+            Role : role.value,
         });
 
-        console.log(response.data);
+        console.log("*****",response.data.data);
         store.setRestaurantId(response.data.data);
+        store.setUser(response.data.data);
         successMessage.value = response.data.message
+
      email.value="", password.value="",
-      firstname.value="", lastname.value="", phone.value="", address.value=""
-     
-     
-        
+      firstname.value="", lastname.value="", phone.value="", address.value=""  
+        redirectReload()
 
       } 
       catch (error) {
@@ -210,3 +226,5 @@ createUserWithEmailAndPassword(auth, email.value, password.value)
 
 
    </script>
+   
+  

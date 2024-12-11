@@ -8,7 +8,9 @@ state : () => ({
     dishList : [],
     restoMemory : [],
     dishMemory : [],
-    restoSearch : [],
+    resto : [],
+    Results : [],
+    toast : false,
 
 
 }),
@@ -30,7 +32,8 @@ add(newItem) {
     //  console.log('items', this.items)
      if (existingItem) {
     //      existingItem.quantity++;
-        alert("Dish already added")
+       // alert("Dish already added")
+       this.toast=true;
       } else {
           this.items.push({...newItem, quantity: 1 });
       }

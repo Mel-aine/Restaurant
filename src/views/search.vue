@@ -22,8 +22,8 @@
       <span class="sr-only">Loading...</span>
     </div>
 
-    <!-- Liste des restaurants -->
-    <div v-else class="flex flex-wrap justify-center gap-6 mx-auto">
+    <!-- Liste des restaurants
+    <div v-else class="flex flex-wrap justify-center gap-6 mx-auto bg-white">
       <a
         v-for="restaurant in restoStore.restoSearch"
         :key="restaurant.id"
@@ -38,23 +38,54 @@
           alt="restaurant logo"
         />
         <div class="flex flex-col justify-between p-4 leading-normal ">
-          <h5 class="mb-2 text-xl font-bold tracking-tight text-orange-500 uppercase">
+          <h5 class="mb-1 text-xl font-bold tracking-tight text-orange-500 uppercase">
             {{ restaurant.name }}
           </h5>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p class="mb-1 font-normal text-gray-700 dark:text-gray-400">
             {{ restaurant.phone }} 
           </p>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p class="mb-1 font-normal text-gray-700 dark:text-gray-400">
             {{ restaurant.address }} 
           </p>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          <p class="mb-1 font-normal text-gray-700 dark:text-gray-400">
             {{ restaurant.service }} 
           </p>
           
         </div>
     </RouterLink>
       </a>
-    </div>
+
+      
+    </div> -->
+
+
+<div v-for="restaurant in restoStore.restoSearch"  :key="restaurant.id">
+    <RouterLink :to="{ name: 'Menu', params: { id_restaurant:restaurant.id_restaurant}}"
+       
+  class="flex flex-col rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white md:max-w-xl md:flex-row">
+   <img
+    class="h-75 w-full rounded-t-lg object-cover md:h-auto md:w-40 md:!rounded-none md:!rounded-s-lg"
+    :src="restaurant.logo"
+    alt="" />
+  <div class="flex flex-col justify-start p-6">
+    <h5 class="mb-2 text-xl font-medium">{{ restaurant.name }}</h5>
+    <p class="mb-4 text-base">
+      {{ restaurant.address }}
+    </p>
+    <p class="text-xs text-surface/75 dark:text-neutral-300">
+      {{ restaurant.phone }} 
+    </p>
+  </div>
+</RouterLink>
+</div>
+
+
+
+
+    <button @click="retour" class=" border rounded-xl px-2 py-2 border-orange-500 translate-y-2 hover:bg-gray-100 shadow-lg drop-shadow-lg cursor-pointer select-none transition-transform transform hover:scale-105 "><svg class="h-10 w-10 text-orange-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+</svg>
+</button>
   </div>
 
 
@@ -87,4 +118,8 @@ const restoStore = useCartStore();
  };
 // // Appeler la fonction lors du montage du composant
  onMounted(fetchRestaurants)
+
+ const retour = () => {
+  window.history.back();
+ }
 </script>

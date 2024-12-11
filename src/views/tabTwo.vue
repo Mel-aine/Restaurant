@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div v-if="store.global?.hasUser"  class=" max-w-md mx-auto bg-white p-8 px-8 rounded-lg shadow-md mt-10 ">
+    <div v-if="store.global?.hasUser && restau"  class=" max-w-md mx-auto bg-white p-8 px-8 rounded-lg shadow-md mt-10 ">
        
-          <div class="flex flex-col items-center px-4 pt-2 pb-2">
+          <div  class="flex flex-col items-center px-4 pt-2 pb-2">
             <img
               class="w-24 h-24 mb-3 rounded-full shadow-lg"  
-              :src="  store.global.user.Restaurants[0].logo "
+              :src="restau.logo "
               alt="Bonnie image"
             />
             <h5
               class="mb-1 text-xl uppercase font-semibold text-orange-500 dark:text-white"
             >
-           {{ store.global.user.Restaurants[0].name }}
+           {{ restau.name }}
             </h5>
           </div>
 
@@ -19,35 +19,35 @@
             <dl
               class="max-w-md text-gray-900 divide-y  items-center   divide-gray-200 dark:text-white dark:divide-gray-700"
             >
-              <!-- <div class="flex-col pb-2 grid md:grid-cols-2 md:gap-6">
+               <div class="flex-col pb-2 grid md:grid-cols-2 md:gap-6">
                 <dt class="mb-1 text-orange-500 md:text-lg dark:text-gray-400">
                   Email address
                 </dt>
-                <dd class="text-lg font-semibold"> {{ store.global.user.Restaurants[0].email }}</dd>
-              </div> -->
+                <dd class="text-lg font-semibold"> {{ restau.email }}</dd>
+              </div> 
               <div class="flex-col py-1 grid md:grid-cols-2 md:gap-6">
                 <dt class="mb-1 text-orange-500 md:text-lg dark:text-gray-400">
                   Restaurant address
                 </dt>
-                <dd class="text-lg font-semibold"> {{ store.global.user.Restaurants[0].address }}</dd>
+                <dd class="text-lg font-semibold"> {{ restau.address }}</dd>
               </div>
               <div class="flex-col py-1 grid md:grid-cols-2 md:gap-6">
                 <dt class="mb-1 text-orange-500 md:text-lg dark:text-gray-400">
                   Phone number
                 </dt>
-                <dd class="text-lg font-semibold"> {{ store.global.user.Restaurants[0].phone }}</dd>
+                <dd class="text-lg font-semibold"> {{ restau.phone }}</dd>
               </div>
               <div class="flex-col py-1 grid md:grid-cols-2 md:gap-6">
                 <dt class="mb-1 text-orange-500 md:text-lg dark:text-gray-400">
                   Site web
                 </dt>
-                <dd class="text-lg font-semibold"> {{ store.global.user.Restaurants[0].website }}</dd>
+                <dd class="text-lg font-semibold">{{ restau.website }} </dd>
               </div>
               <div class="flex-col py-1 grid md:grid-cols-2 md:gap-6">
                 <dt class="mb-1 text-orange-500 md:text-lg dark:text-gray-400">
                   Type of service
                 </dt>
-                <dd class="text-lg font-semibold"> {{ store.global.user.Restaurants[0].service }}</dd>
+                <dd class="text-lg font-semibold"> {{ restau.service }}</dd>
               </div>
             </dl>
           </div>
@@ -132,15 +132,18 @@
   </div>
 </template>
 <script setup >
-import { ref } from "vue";
+import { ref,computed,onMounted  } from "vue";
 import { store } from "../store/global";
+import { useCartStore } from '/src/utils/useCartStore.js';
 import axios from "axios";
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref as stRef, uploadBytes ,getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, push, set } from 'firebase/database';
-
+import { useRoute } from 'vue-router';
+const route = useRoute();
 const active = ref(true);
 const isLoading = ref(false);
+const resultStore = useCartStore()
 
 
 
@@ -158,7 +161,6 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const database = getDatabase(app);
 const databaseReference = dbRef(database, "files");
-const Restaurant = store.getRestaurant()
 
 const open1 = () => {
     active.value = !active.value;
@@ -180,16 +182,42 @@ const restaurant = ref({
 
 // Ouvrir le modal et pré-remplir les informations
 const openModal = () => {
-  restaurant.value.name = store.global.user.Restaurants[0].name ;
+  restaurant.value.name = resultStore.Results.name ;
   //restaurant.value.address = store.global.user.Restaurants[0].address;
-  restaurant.value.address = store.global.user.Restaurants[0].address;
-  restaurant.value.phone = store.global.user.Restaurants[0].phone;
-  restaurant.value.website = store.global.user.Restaurants[0].website;
-  restaurant.value.service = store.global.user.Restaurants[0].service;
-  //restaurant.value.email = store.global.user.Restaurants[0].email;
-  restaurant.value.logo = store.global.user.Restaurants[0].logo;
+  restaurant.value.address = resultStore.Results.address;
+  restaurant.value.phone = resultStore.Results.phone;
+  restaurant.value.website = resultStore.Results.website;
+  restaurant.value.service = resultStore.Results.service;
+  restaurant.value.email = resultStore.Results.email;
+  //restaurant.value.logo = restau.logo;
   isModalOpen.value = true;
 };
+
+
+
+
+
+const restaurantId = Number(route.params.id_restaurant); // Assurez-vous que l'ID est un nombre
+const restaurants = ref([]);
+
+
+onMounted(async () => {
+  restaurants.value = await store.getRestaurant() || [];
+  console.log('Restaurants chargés:', restaurants.value);
+
+  // Vérification des IDs
+  restaurants.value.forEach(resto => {
+    console.log('ID dans tableau:', resto.id_restaurant, 'Type:', typeof resto.id_restaurant);
+  });
+});
+
+const restau = computed(() => {
+  const result = restaurants.value.find(resto => resto.id_restaurant === restaurantId);
+  resultStore.Results = result;
+  console.log('Restaurant trouvé:', resultStore.Results);
+
+  return result;
+});
 
 // Fermer le modal
 const closeModal = () => {
