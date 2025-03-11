@@ -3,12 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Formulaire from '../views/Formulaire.vue'
 import HomeView from '../views/HomeView.vue'
 import Inscription from '../views/Inscription.vue'
-import Connexion from '../views/Connexion.vue'
-import Commande from '../views/Commande.vue'
-import table1 from '../views/table1.vue'
-import table2 from '../views/table2.vue'
-import Client from '../views/Client.vue'
-
+import horaire from '../views/horaire.vue'
+import restaurateur from '../views/restaurateur.vue'
+import Menu from '../views/Menu.vue'
+import search from '../views/search.vue'
+import men from '../views/men.vue'
+import {store} from '../store/global'
 
 
 
@@ -25,6 +25,11 @@ import Client from '../views/Client.vue'
             name: 'form',
             component: Formulaire
         },
+        {
+            path: '/men',
+            name: 'men',
+            component: men
+        },
 
         {
             path: '/inscrire',
@@ -35,35 +40,34 @@ import Client from '../views/Client.vue'
         {
             path: '/connect',
             name: 'connect',
-            component: Connexion
+            component: horaire
+        },
+        {
+            path: '/search',
+            name: 'search',
+            component: search
         },
 
         {
-            path: '/cmd',
+            path: '/cmd/:id_restaurant',
             name: 'cmd',
-            component: Commande
+            component: restaurateur
         },
 
-        {
-            path: '/tab',
-            name: 'tab',
-            component: table1
-        },
-        {
-            path: '/tab1',
-            name: 'tab1',
-            component: table2
-        },
-        {
-            path: '/client',
-            name: 'client',
-            component: Client
-        },
-
-
+        {path: '/restaurant/:id_restaurant',
+             name: 'Menu', 
+             component: Menu,
+            },
+    
         
     ]
     
 })
-
+const waitForStorageToBeReady = async (to, from, next) => {
+    console.log('..................');
+    
+     store.restored()
+        next()
+  }
+router.beforeEach(waitForStorageToBeReady)
 export default router
